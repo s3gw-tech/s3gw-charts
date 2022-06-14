@@ -1,4 +1,4 @@
-{{ if eq .Values.pvc "local-storage" }}
+{{ if eq .Values.storageType "local" }}
 ---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -11,7 +11,7 @@ volumeBindingMode: WaitForFirstConsumer
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: local-storage
+  name: '{{ .Release.Name }}-local-pvc'
   namespace: {{ .Release.Namespace }}
 spec:
   storageClassName: local-storage
@@ -24,7 +24,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: task-pv-volume
+  name: '{{ .Release.Name }}.{{ .Release.Namespace }}-local-pv'
   labels:
     type: local
 spec:
@@ -34,5 +34,5 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/tmp/local-storage"
+    path: {{ .Values.storage }}
 {{ end }}

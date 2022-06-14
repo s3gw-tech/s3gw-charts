@@ -60,6 +60,6 @@ jobs:
             ingress-nginx=https://kubernetes.github.io/ingress-nginx \
             --chart-repos \
             ingress-traefik=https://helm.traefik.io/traefik \
-            --helm-extra-set-args="--set=pvc=local-storage" \
+            --helm-extra-set-args="--set=storageType=local,storage=/tmp/local-storage" \
             --helm-extra-args="--timeout=500s" \
             --debug
