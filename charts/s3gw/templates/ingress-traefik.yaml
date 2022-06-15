@@ -12,10 +12,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - s3gw.local
+        - '{{ .Values.hostname }}'
       secretName: '{{ .Chart.Name }}-ingress-secret'
   rules:
-    - host: s3gw.local
+    - host: '{{ .Values.hostname }}'
       http:
         paths:
           - path: /
@@ -37,7 +37,7 @@ metadata:
       '{{ .Release.Namespace }}-cors.header@kubernetescrd'
 spec:
   rules:
-    - host: s3gw-no-tls.local
+    - host: 'no-tls-{{ .Values.hostname }}'
       http:
         paths:
           - path: /

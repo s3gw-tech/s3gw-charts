@@ -1,7 +1,7 @@
 ---
 apiVersion: v2
 name: s3gw
-version: 0.1.1
+version: 0.1.2
 kubeVersion: ">=1.14"
 description: |
   Standalone S3-compatible gateway based on Ceph RGW using a non-RADOS storage

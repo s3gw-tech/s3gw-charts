@@ -19,7 +19,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 2Gi
+      storage: {{ .Values.storageSize }}
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -30,7 +30,7 @@ metadata:
 spec:
   storageClassName: local-storage
   capacity:
-    storage: 2Gi
+    storage: {{ .Values.storageSize }}
   accessModes:
     - ReadWriteOnce
   hostPath:
