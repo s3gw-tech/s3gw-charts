@@ -1,8 +1,11 @@
 ---
 # Default access credemtials:
-default:
-  access_key: "0555b35654ad1656d804"
-  secret_key: "h7GhxuBLTrlhVUyxSPUKUV8r/2EI4ngqJxD7iBdBYLhwluN30JaT3Q=="
+access_key: "0555b35654ad1656d804"
+secret_key: "h7GhxuBLTrlhVUyxSPUKUV8r/2EI4ngqJxD7iBdBYLhwluN30JaT3Q=="
+
+# S3 user interface
+ui:
+  enabled: false
 
 # Ingress configuration.
 # Enable the ingress corresponding to the target cluster ingress controller
@@ -34,6 +37,10 @@ tls:
 #
 # Image settings:
 imageRegistry: "ghcr.io/aquarist-labs"
+imagePullPolicy: "Always"
+
 imageName: "s3gw"
 imageTag: "latest"
-imagePullPolicy: "Always"
+
+imageName_ui: "s3gw-ui"
+imageTag_ui: "latest"

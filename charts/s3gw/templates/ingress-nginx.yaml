@@ -1,0 +1,75 @@
+{{- if .Values.ingress.nginx.enabled }}
+---
+# TLS Ingress
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: '{{ .Chart.Name }}-tls'
+  namespace: {{ .Release.Namespace }}
+  annotations:
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - s3gw.local
+      secretName: '{{ .Chart.Name }}-ingress-secret'
+  rules:
+    - host: s3gw.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: '{{ .Chart.Name }}-svc'
+                port:
+                  number: 80
+---
+# No TLS Ingress
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: '{{ .Chart.Name }}-no-tls'
+  namespace: {{ .Release.Namespace }}
+  annotations:
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: s3gw-no-tls.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: '{{ .Chart.Name }}-svc'
+                port:
+                  number: 80
+{{- if .Values.ui.enabled }}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: '{{ .Chart.name }}-ui-ingress'
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - s3gw-ui.local
+      secretName: s3gw-ingress-secret
+  rules:
+    - host: s3gw-ui.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: '{{ .Chart.Name }}-ui-service'
+                port:
+                  number: 80
+{{- end }}
+{{- end }}

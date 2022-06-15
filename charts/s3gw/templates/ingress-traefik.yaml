@@ -1,4 +1,4 @@
-{{ if or .Values.ingress.nginx.enabled .Values.ingress.traefik.enabled }}
+{{ if .Values.ingress.traefik.enabled }}
 ---
 # TLS Ingress
 apiVersion: networking.k8s.io/v1
@@ -7,14 +7,9 @@ metadata:
   name: '{{ .Chart.Name }}-tls'
   namespace: {{ .Release.Namespace }}
   annotations:
-{{- if .Values.ingress.traefik.enabled }}
     traefik.ingress.kubernetes.io/router.middlewares:
       '{{ .Release.Namespace }}-cors.header@kubernetescrd'
-{{- end }}
 spec:
-{{- if .Values.ingress.nginx.enabled }}
-  ingressClassName: nginx
-{{- end }}
   tls:
     - hosts:
         - s3gw.local
@@ -38,14 +33,9 @@ metadata:
   name: '{{ .Chart.Name }}-no-tls'
   namespace: {{ .Release.Namespace }}
   annotations:
-{{- if .Values.ingress.traefik.enabled }}
     traefik.ingress.kubernetes.io/router.middlewares:
       '{{ .Release.Namespace }}-cors.header@kubernetescrd'
-{{- end }}
 spec:
-{{- if .Values.ingress.nginx.enabled }}
-  ingressClassName: nginx
-{{- end }}
   rules:
     - host: s3gw-no-tls.local
       http:
@@ -57,7 +47,33 @@ spec:
                 name: '{{ .Chart.Name }}-svc'
                 port:
                   number: 80
-{{ if .Values.ingress.traefik.enabled }}
+{{- if .Values.ui.enabled }}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: '{{ .Chart.name }}-ui-ingress'
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    traefik.ingress.kubernetes.io/router.middlewares:
+      '{{ .Release.Namespace }}-cors.header@kubernetescrd'
+spec:
+  tls:
+    - hosts:
+        - s3gw-ui.local
+      secretName: s3gw-ingress-secret
+  rules:
+    - host: s3gw-ui.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: '{{ .Chart.Name }}-ui-service'
+                port:
+                  number: 80
+{{- end }}
 ---
 # Middleware for Traefik
 apiVersion: traefik.containo.us/v1alpha1
@@ -77,5 +93,4 @@ spec:
       - "*"
     accessControlAllowHeaders:
       - "*"
-{{- end }}
 {{- end }}
