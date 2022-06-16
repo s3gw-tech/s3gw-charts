@@ -65,16 +65,30 @@ tls:
 The s3gw is best deployed ontop of a [longhorn](https://longhorn.io) volume. If
 you have longhorn installed in your cluster, all appropriate resources will be
 automatically deployed for you.
+Make sure the `storageType` is set to `"longhorn"` and the correct size for the
+claim is set in `storageSize`:
+```yaml
+storageType: "longhorn"
+storageSize: 10Gi
+```
+
 However if you want to use s3gw with other storage providers, you can do so too.
 You must first deploy a persistent volume claim for your storage provider. Then
 you deploy s3gw and set it to use that persistent volume claim (pvc) with:
 ```yaml
-pvc: $NAME_OF_YOUR_PVC
+storageType: "pvc"
+storage: the-name-of-the-pvc
 ```
 s3gw will then reuse that pvc instead of deploying a longhorn volume.
 
-For testing, you can also use the special pvc name `local-storage`, it will
-deploy a pvc consuming a host-path in `/tmp/local-storage`
+You can also use local filesystem storage instead, by setting `storageType` to
+`"local"`, `storageSize` to the desired quota and `storage` to the path on the
+hosts filesystem, e.g:
+```yaml
+storageType: "local"
+storageSize: 10Gi
+storage: /mnt/extra-storage/
+```
 
 ### Image Settings
 

@@ -22,9 +22,9 @@ spec:
               s3 -u -t 50 list | grep testbucket
           env:
             - name: S3_ACCESS_KEY_ID
-              value: {{ .Values.default.access_key | quote }}
+              value: {{ .Values.access_key | quote }}
             - name: S3_SECRET_ACCESS_KEY
-              value: {{ .Values.default.secret_key | quote }}
+              value: {{ .Values.secret_key | quote }}
             - name: S3_HOSTNAME
               value: 's3gw-svc.{{ .Release.Namespace }}.svc.cluster.local'
       restartPolicy: Never
