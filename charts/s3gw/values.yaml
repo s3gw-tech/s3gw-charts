@@ -11,17 +11,10 @@ ui:
 hostname: s3gw.local
 
 # Ingress configuration.
-# Enable the ingress corresponding to the target cluster ingress controller
-# Currently ingress resources are provided for nginx and traefik.
-# When 'install' is set to true, the corresponding ingress controller will be
-# installed first.
-ingress:
-  nginx:
-    enabled: true
-    install: false
-  traefik:
-    enabled: false
-    install: false
+# 'enableIngress' will deploy an ingress resource to the cluster,
+# 'installIngress' will also deploy the ingress controller, if desired.
+enableIngress: true
+installIngress: false
 
 # TLS Certificate
 tls:
