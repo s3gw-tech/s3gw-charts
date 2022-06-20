@@ -1,7 +1,11 @@
 ---
 # Default access credemtials:
-access_key: "0555b35654ad1656d804"
-secret_key: "h7GhxuBLTrlhVUyxSPUKUV8r/2EI4ngqJxD7iBdBYLhwluN30JaT3Q=="
+userID: "testid"
+userDisplayName: "M. Tester"
+userEmail: "tester@ceph.com"
+userCapabilities: "usage=read,write;users=read,write"
+accessKey: "0555b35654ad1656d804"
+secretKey: "h7GhxuBLTrlhVUyxSPUKUV8r/2EI4ngqJxD7iBdBYLhwluN30JaT3Q=="
 
 # S3 user interface
 ui:
