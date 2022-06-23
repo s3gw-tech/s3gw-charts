@@ -9,6 +9,8 @@ metadata:
   annotations:
     traefik.ingress.kubernetes.io/router.middlewares:
       '{{ .Release.Namespace }}-cors-header@kubernetescrd'
+  labels:
+{{ include "s3gw.labels" . | indent 4 }}
 spec:
   ingressClassName: ingress-traefik
   tls:
@@ -36,6 +38,8 @@ metadata:
   annotations:
     traefik.ingress.kubernetes.io/router.middlewares:
       '{{ .Release.Namespace }}-cors-header@kubernetescrd'
+  labels:
+{{ include "s3gw.labels" . | indent 4 }}
 spec:
   ingressClassName: ingress-traefik
   rules:
@@ -59,6 +63,8 @@ metadata:
   annotations:
     traefik.ingress.kubernetes.io/router.middlewares:
       '{{ .Release.Namespace }}-cors-header@kubernetescrd'
+  labels:
+{{ include "s3gw.labels" . | indent 4 }}
 spec:
   ingressClassName: ingress-traefik
   tls:
@@ -84,6 +90,8 @@ kind: Middleware
 metadata:
   name: cors-header
   namespace: {{ .Release.Namespace }}
+  labels:
+{{ include "s3gw.labels" . | indent 4 }}
 spec:
   headers:
     accessControlAllowMethods:

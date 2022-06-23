@@ -5,6 +5,8 @@ kind: StorageClass
 metadata:
   name: longhorn-single
   namespace: {{ .Release.Namespace }}
+  labels:
+{{ include "s3gw.labels" . | indent 4 }}
 provisioner: driver.longhorn.io
 allowVolumeExpansion: true
 reclaimPolicy: Delete
@@ -20,6 +22,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: s3gw-pvc
   namespace: {{ .Release.Namespace }}
+  labels:
+{{ include "s3gw.labels" . | indent 4 }}
 spec:
   storageClassName: longhorn-single
   accessModes:

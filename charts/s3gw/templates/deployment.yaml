@@ -2,24 +2,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Chart.Name }}
+  name: '{{ .Release.Name }}-dpl'
   namespace: {{ .Release.Namespace }}
   labels:
-    app.aquarist-labs.io/name: {{ .Chart.Name }}
-    helm.sh/chart: '{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}'
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+{{ include "s3gw.labels" . | indent 4 }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app.aquarist-labs.io/name: {{ .Chart.Name }}
+{{ include "s3gw.selectorLabels" . | indent 6 }}
   strategy: {}
   template:
     metadata:
       labels:
-        app.aquarist-labs.io/name: {{ .Chart.Name }}
+{{ include "s3gw.labels" . | indent 8 }}
     spec:
       containers:
         - name: {{ .Chart.Name }}

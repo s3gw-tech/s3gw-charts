@@ -4,6 +4,8 @@ kind: ConfigMap
 metadata:
   name: s3gw-config
   namespace: {{ .Release.Namespace }}
+  labels:
+{{ include "s3gw.labels" . | indent 4 }}
 data:
   RGW_BACKEND_STORE: "dbstore"
   DEBUG_RGW: "1"

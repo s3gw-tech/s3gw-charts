@@ -5,6 +5,8 @@ kind: StorageClass
 metadata:
   name: local-storage
   namespace: {{ .Release.Namespace }}
+  labels:
+{{ include "s3gw.labels" . | indent 4 }}
 provisioner: kubernetes.io/no-provisioner
 volumeBindingMode: WaitForFirstConsumer
 ---
@@ -13,6 +15,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: '{{ .Release.Name }}-local-pvc'
   namespace: {{ .Release.Namespace }}
+  labels:
+{{ include "s3gw.labels" . | indent 4 }}
 spec:
   storageClassName: local-storage
   accessModes:
@@ -27,6 +31,7 @@ metadata:
   name: '{{ .Release.Name }}.{{ .Release.Namespace }}-local-pv'
   labels:
     type: local
+{{ include "s3gw.labels" . | indent 4 }}
 spec:
   storageClassName: local-storage
   capacity:
