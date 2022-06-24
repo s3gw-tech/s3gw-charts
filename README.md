@@ -51,7 +51,7 @@ ingress:
 
 provide the TLS certificate in the `values.yaml` file to enable TLS at the
 ingress.
-Note that the connection between the ingress and s3gw itself within the cluster 
+Note that the connection between the ingress and s3gw itself within the cluster
 will not be TLS protected.
 
 ```yaml
@@ -100,4 +100,8 @@ imageRegistry: "ghcr.io/aquarist-labs"
 imageName: "s3gw"
 imageTag: "latest"
 imagePullPolicy: "Always"
+imageRegistry_ui: "ghcr.io/aquarist-labs"
+imageName_ui: "s3gw-ui"
+imageTag_ui: "latest"
+imagePullPolicy_ui: "Always"
 ```
