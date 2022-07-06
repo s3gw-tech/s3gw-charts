@@ -25,26 +25,23 @@ The helm chart can be customized for your Kubernetes environment. To do so,
 either provide a `values.yaml` file with your settings, or set the options on
 the command line directly using `helm --set key=value`.
 
+### Hostname
+
+Use the `hostname` setting to configure the hostname under which you would like
+to make the gateway available:
+```yaml
+hostname: s3gw.local
+```
+
+The plain HTTP endpoint will then be generated as: `no-tls-s3gw.local`
+
 ### Ingress Options
 
-Both NGinx and Traefik are supported as ingress controllers. If your cluster
-does not have either, it can be installed automatically by helm if
-`ingress.nginx.install` or `ingress.traefik.install` respectively is set to
-`true`
-If your cluster already has either one of the ingress controllers installed, you
-can enable the corresponding ingress object by setting `ingress.nginx.enabled`
-or `ingress.traefik.enabled` respectively to `true`.
-
-For example this configuration will reuse an existing traefik ingress controller
-by deploying a traefik ingress object:
+The chart can install an ingress resource for a Traefik ingress controller, but
+it can also install the ingress controller itself, if so desired:
 ```yaml
-ingress:
-  nginx:
-    enabled: false
-    install: false
-  traefik:
-    enabled: true
-    install: false
+enableIngress: true
+installIngress: false
 ```
 
 ### TLS Certificates
@@ -100,4 +97,10 @@ imageRegistry: "ghcr.io/aquarist-labs"
 imageName: "s3gw"
 imageTag: "latest"
 imagePullPolicy: "Always"
+```
+
+To configure the image and registry for the user interface, use:
+```yaml
+imageName_ui: "s3gw-ui"
+imageTag_ui: "latest"
 ```
