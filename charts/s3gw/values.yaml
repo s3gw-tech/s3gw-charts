@@ -45,5 +45,9 @@ imagePullPolicy: "Always"
 imageName: "s3gw"
 imageTag: "latest"
 
+# Image UI settings:
+imageRegistry_ui: "ghcr.io/aquarist-labs"
+imagePullPolicy_ui: "Always"
+
 imageName_ui: "s3gw-ui"
 imageTag_ui: "latest"

@@ -51,10 +51,11 @@ spec:
                   number: 80
 {{- if .Values.ui.enabled }}
 ---
+# UI TLS Ingress
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: '{{ .Chart.Name }}-ui-ingress'
+  name: '{{ .Chart.Name }}-ui-tls'
   namespace: {{ .Release.Namespace }}
   annotations:
     traefik.ingress.kubernetes.io/router.middlewares:
@@ -64,9 +65,32 @@ spec:
   tls:
     - hosts:
         - 'ui-{{ .Values.hostname }}'
-      secretName: s3gw-ingress-secret
+      secretName: '{{ .Chart.Name }}-ingress-secret'
   rules:
     - host: 'ui-{{ .Values.hostname }}'
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: '{{ .Chart.Name }}-ui-svc'
+                port:
+                  number: 80
+---
+# UI No TLS Ingress
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: '{{ .Chart.Name }}-ui-no-tls'
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    traefik.ingress.kubernetes.io/router.middlewares:
+      '{{ .Release.Namespace }}-cors-header@kubernetescrd'
+spec:
+  ingressClassName: ingress-traefik
+  rules:
+    - host: 'no-tls-ui-{{ .Values.hostname }}'
       http:
         paths:
           - path: /
