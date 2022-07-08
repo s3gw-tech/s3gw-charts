@@ -10,7 +10,6 @@ metadata:
     traefik.ingress.kubernetes.io/router.middlewares:
       '{{ .Release.Namespace }}-cors-header@kubernetescrd'
 spec:
-  ingressClassName: ingress-traefik
   tls:
     - hosts:
         - '{{ .Values.hostname }}'
@@ -37,7 +36,6 @@ metadata:
     traefik.ingress.kubernetes.io/router.middlewares:
       '{{ .Release.Namespace }}-cors-header@kubernetescrd'
 spec:
-  ingressClassName: ingress-traefik
   rules:
     - host: 'no-tls-{{ .Values.hostname }}'
       http:
@@ -61,7 +59,6 @@ metadata:
     traefik.ingress.kubernetes.io/router.middlewares:
       '{{ .Release.Namespace }}-cors-header@kubernetescrd'
 spec:
-  ingressClassName: ingress-traefik
   tls:
     - hosts:
         - 'ui-{{ .Values.hostname }}'
@@ -88,7 +85,6 @@ metadata:
     traefik.ingress.kubernetes.io/router.middlewares:
       '{{ .Release.Namespace }}-cors-header@kubernetescrd'
 spec:
-  ingressClassName: ingress-traefik
   rules:
     - host: 'no-tls-ui-{{ .Values.hostname }}'
       http:
