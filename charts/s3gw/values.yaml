@@ -11,10 +11,8 @@ ui:
 hostname: s3gw.local
 
 # Ingress configuration.
-# 'enableIngress' will deploy an ingress resource to the cluster,
-# 'installIngress' will also deploy the ingress controller, if desired.
+# 'enableIngress' will deploy an ingress resource to the cluster.
 enableIngress: true
-installIngress: false
 
 # TLS Certificate
 tls:
