@@ -1,7 +1,7 @@
 ---
 apiVersion: v2
 name: s3gw
-version: 0.1.5
+version: 0.1.6
 kubeVersion: ">=1.14"
 description: |
   Standalone S3-compatible gateway based on Ceph RGW using a non-RADOS storage
@@ -14,11 +14,6 @@ sources:
   - https://github.com/aquarist-labs/s3gw-charts
   - https://github.com/aquarist-labs/s3gw-core
   - https://github.com/aquarist-labs/ceph
-dependencies:
-  - name: traefik
-    version: 10.20.1
-    repository: https://helm.traefik.io/traefik
-    condition: installIngress
 maintainers:
   - name: m-ildefons  # Moritz Röhrich
     email: moritz.rohrich@suse.com
