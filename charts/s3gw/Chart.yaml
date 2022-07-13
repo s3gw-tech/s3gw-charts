@@ -4,14 +4,13 @@ name: s3gw
 version: 0.1.7
 kubeVersion: ">=1.14"
 description: |
-  Standalone S3-compatible gateway based on Ceph RGW using a non-RADOS storage
+  Easy-to-use Open Source and Cloud Native S3 service for use on Rancher's Kubernetes.
   backend.
 type: application
 keywords:
   - storage
   - s3
-home:
-  - https://github.com/aquarist-labs/s3gw-core
+home: https://github.com/aquarist-labs/s3gw-core
 sources:
   - https://github.com/aquarist-labs/s3gw-charts
   - https://github.com/aquarist-labs/s3gw-core
