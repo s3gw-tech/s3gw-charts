@@ -5,5 +5,5 @@ metadata:
   name: s3gw-config
   namespace: {{ .Release.Namespace }}
 data:
-  RGW_BACKEND_STORE: "dbstore"
+  RGW_BACKEND_STORE: "sfs"
   DEBUG_RGW: "1"
