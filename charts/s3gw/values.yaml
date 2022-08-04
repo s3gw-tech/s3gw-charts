@@ -41,11 +41,11 @@ imageRegistry: "ghcr.io/aquarist-labs"
 imagePullPolicy: "Always"
 
 imageName: "s3gw"
-imageTag: "v0.1.0"
+imageTag: "v0.3.0"
 
 # Image UI settings:
 imageRegistry_ui: "ghcr.io/aquarist-labs"
 imagePullPolicy_ui: "Always"
 
 imageName_ui: "s3gw-ui"
-imageTag_ui: "latest"
+imageTag_ui: "v0.3.0"
