@@ -7,3 +7,6 @@ metadata:
 data:
   RGW_BACKEND_STORE: "sfs"
   DEBUG_RGW: "1"
+{{- if .Values.ui.enabled }}
+  RGW_SERVICE_URL: 'api'
+{{- end }}

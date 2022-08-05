@@ -8,7 +8,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
   annotations:
     traefik.ingress.kubernetes.io/router.middlewares:
-      '{{ .Release.Namespace }}-cors-header@kubernetescrd'
+      '{{ .Release.Namespace }}-cors-header@kubernetescrd,{{ .Release.Namespace }}-strip-api-prefix@kubernetescrd'
 spec:
   tls:
     - hosts:
@@ -34,7 +34,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
   annotations:
     traefik.ingress.kubernetes.io/router.middlewares:
-      '{{ .Release.Namespace }}-cors-header@kubernetescrd'
+      '{{ .Release.Namespace }}-cors-header@kubernetescrd,{{ .Release.Namespace }}-strip-api-prefix@kubernetescrd'
 spec:
   rules:
     - host: 'no-tls-{{ .Values.hostname }}'
@@ -74,6 +74,13 @@ spec:
                 name: '{{ .Chart.Name }}-ui-svc'
                 port:
                   number: 80
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: '{{ .Chart.Name }}-svc'
+                port:
+                  number: 80
 ---
 # UI No TLS Ingress
 apiVersion: networking.k8s.io/v1
@@ -96,6 +103,25 @@ spec:
                 name: '{{ .Chart.Name }}-ui-svc'
                 port:
                   number: 80
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: '{{ .Chart.Name }}-svc'
+                port:
+                  number: 80
+---
+# Middleware for Traefik
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: strip-api-prefix
+  namespace: {{ .Release.Namespace }}
+spec:
+  stripPrefix:
+    prefixes:
+      - /api
+    forceSlash: false
 {{- end }}
 ---
 # Middleware for Traefik
