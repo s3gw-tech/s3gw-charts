@@ -4,6 +4,15 @@ access_key: "test"
 secret_key: "test"
 
 # S3 user interface
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# Note, the UI will not be able to access the RGW AdminOps API when
+# using HTTPS and self-signed certificates because of CORS issues.
+# To workaround that, please open the URL https://<HOSTNAME> in the
+# browser and accept the SSL certificate before accessing the UI
+# via https://ui-<HOSTNAME>.
+# Check https://github.com/aquarist-labs/s3gw/issues/31 to get more
+# information about the CORS issues.
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ui:
   enabled: false
 
