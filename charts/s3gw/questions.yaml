@@ -48,7 +48,7 @@ questions:
   description: "Storage type"
   type: enum
   options:
-  - "PVC"
+  - "pvc"
   - "local"
   - "longhorn"
   #- "StorageClass"
@@ -61,24 +61,28 @@ questions:
   type: string
   default: "s3gw-pvc"
   label: PVC Name
+  group: "Storage"
 - variable: storage
   show_if: storageType=local
   description: "Local Storage Path"
   type: string
   default: "/tmp/local-storage"
   label: PVC Name
+  group: "Storage"
 - variable: storageSize
   show_if: storageType=local
   description: "Storage Size for the local volume"
   type: string
   default: 10Gi
   label: Storage Size
+  group: "Storage"
 - variable: storageSize
   show_if: storageType=longhorn
   description: "Storage Size for the longhorn volume"
   type: string
   default: 10Gi
   label: Storage Size
+  group: "Storage"
   #StorageClass for when choosing from a StorageClass is supported for PV provisioning
   #- variable: storageType
   #  show_if: storageType=StorageClass
@@ -91,8 +95,8 @@ questions:
 #Ingress
 - variable: enableIngress
   default: true
-  description: "Ingress Enabled"
-  label: "Ingress Enabled"
+  description: "Enable Ingress"
+  label: "Enable Ingress"
   required: true
   type: boolean
   group: "Ingress"
