@@ -1,0 +1,150 @@
+questions:
+# Default access credentials:
+
+- variable: access_key
+  default: test
+  description: "Access Key"
+  label: "Access Key"
+  required: true
+  type: string
+  group: "General"
+- variable: secret_key
+  default: test
+  description: "Secret Key"
+  label: "Secret Key"
+  required: true
+  type: string
+  group: "General"
+- variable: hostname
+  default: s3gw.local
+  description: "DNS URL for the S3 Service"
+  label: "hostname"
+  required: true
+  type: string
+  group: "General"
+- variable: ui.enabled
+  default: false
+  description: "UI Enabled"
+  label: "UI Enabled"
+  required: true
+  type: boolean
+  group: "General"
+  
+- variable: tls.crt
+  description: "TLS Cert"
+  label: "TLS Cert"
+  required: false
+  type: string
+  group: "TLS"
+- variable: tls.key
+  description: "TLS Key"
+  label: "TLS Key"
+  required: false
+  type: string
+  group: "TLS"
+
+#Storage
+- variable: storageType
+  description: "Storage type"
+  type: enum
+  options:
+  - "pvc"
+  - "local"
+  - "longhorn"
+  required: true
+  label: Storage Type
+  group: "Storage"
+- variable: storage
+  show_if: storageType=PVC
+  description: "PVC Name"
+  type: string
+  default: "s3gw-pvc"
+  label: PVC Name
+  group: "Storage"
+- variable: storage
+  show_if: storageType=local
+  description: "Local Storage Path"
+  type: string
+  default: "/tmp/local-storage"
+  label: PVC Name
+  group: "Storage"
+- variable: storageSize
+  show_if: storageType=local
+  description: "Storage Size for the local volume"
+  type: string
+  default: 10Gi
+  label: Storage Size
+  group: "Storage"
+- variable: storageSize
+  show_if: storageType=longhorn
+  description: "Storage Size for the longhorn volume"
+  type: string
+  default: 10Gi
+  label: Storage Size
+  group: "Storage"
+
+#Ingress
+- variable: enableIngress
+  default: true
+  description: "Enable Ingress"
+  label: "Enable Ingress"
+  required: true
+  type: boolean
+  group: "Ingress"
+
+- variable: imageRegistry
+  default: "ghcr.io/aquarist-labs"
+  description: "Image Registry"
+  label: "Image Registry"
+  required: false
+  type: string
+  group: "Images"
+- variable: imagePullPolicy
+  default: "Always"
+  description: "Image Pull Policy"
+  label: "Image Pull Policy"
+  required: false
+  type: string
+  group: "Images"
+- variable: imageName
+  default: "s3gw"
+  description: "Image Name"
+  label: "Image Name"
+  required: false
+  type: string
+  group: "Images"
+- variable: imageTag
+  default: "v0.3.0"
+  description: "Image Tag"
+  label: "Image Tag"
+  required: false
+  type: string
+  group: "Images"
+- variable: imageRegistry_ui
+  default: "ghcr.io/aquarist-labs"
+  description: "UI Image Registry"
+  label: "UI Image Registry"
+  required: false
+  type: string
+  group: "Images"
+- variable: imagePullPolicy_ui
+  default: "Always"
+  description: "UI Image Pull Policy"
+  label: "UI Image Pull Policy"
+  required: false
+  type: string
+  group: "Images"
+- variable: imageName_ui
+  default: "s3gw-ui"
+  description: "UI Image Name"
+  label: "UI Image Name"
+  required: false
+  type: string
+  group: "Images"
+- variable: imageTag_ui
+  default: "v0.3.0"
+  description: "UI Image Tag"
+  label: "UI Image Tag"
+  required: false
+  type: string
+  group: "Images"
