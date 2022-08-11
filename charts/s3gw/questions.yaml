@@ -1,0 +1,181 @@
+questions:
+# Default access credentials:
+
+- variable: access_key
+  default: test
+  description: "Access Key"
+  label: "Access Key"
+  required: true
+  type: string
+  group: "General"
+- variable: secret_key
+  default: test
+  description: "Secret Key"
+  label: "Secret Key"
+  required: true
+  type: string
+  group: "General"
+- variable: hostname
+  default: s3gw.local
+  description: "DNS URL for the S3 Service"
+  label: "hostname"
+  required: true
+  type: string
+  group: "General"
+- variable: ui.enabled
+  default: false
+  description: "UI Enabled"
+  label: "UI Enabled"
+  required: true
+  type: boolean
+  group: "General"
+  
+- variable: tls.crt
+  description: "TLS Cert"
+  label: "TLS Cert"
+  required: false
+  type: string
+  group: "TLS"
+- variable: tls.key
+  description: "TLS Key"
+  label: "TLS Key"
+  required: false
+  type: string
+  group: "TLS"
+
+#Storage
+- variable: storageType
+  description: "Storage type"
+  type: enum
+  options:
+  - "PVC"
+  - "local"
+  - "longhorn"
+  #- "StorageClass"
+  required: true
+  label: Storage Type
+  group: "Storage"
+- variable: storage
+  show_if: storageType=PVC
+  description: "PVC Name"
+  type: string
+  default: "s3gw-pvc"
+  label: PVC Name
+- variable: storage
+  show_if: storageType=local
+  description: "Local Storage Path"
+  type: string
+  default: "/tmp/local-storage"
+  label: PVC Name
+- variable: storageSize
+  show_if: storageType=local
+  description: "Storage Size for the local volume"
+  type: string
+  default: 10Gi
+  label: Storage Size
+- variable: storageSize
+  show_if: storageType=longhorn
+  description: "Storage Size for the longhorn volume"
+  type: string
+  default: 10Gi
+  label: Storage Size
+  #StorageClass for when choosing from a StorageClass is supported for PV provisioning
+  #- variable: storageType
+  #  show_if: storageType=StorageClass
+  #  description: "Storage Class for Type"
+  #  label: "Storage Class"
+  #  required: false
+  
+
+
+#Ingress
+- variable: enableIngress
+  default: true
+  description: "Ingress Enabled"
+  label: "Ingress Enabled"
+  required: true
+  type: boolean
+  group: "Ingress"
+# Adding example entries for a future support of a different Service Type
+#- variable: Ingress.type
+#  description: "S3 Service type"
+#  type: enum
+#  show_if: "enableIngress=false"
+#  options:
+#  - "ClusterIP"
+#  - "NodePort"
+#  - "LoadBalancer"
+#  required: true
+#  label: Ingress Service Type
+#  show_subquestion_if: "NodePort"
+#  group: "Services and Load Balancing"
+#  subquestions:
+#  - variable: s3.nodePorts.http
+#    description: "NodePort http port (to set explicitly, choose port between 30000-32767)"
+#    type: int
+#    min: 30000
+#    max: 32767
+#    label: NodePort Http Port
+#  - variable: s3.nodePorts.https
+#    description: "NodePort https port (to set explicitly, choose port between 30000-32767)"
+#    type: int
+#    min: 30000
+#    max: 32767
+#    label: NodePort Https Port
+
+- variable: imageRegistry
+  default: "ghcr.io/aquarist-labs"
+  description: "Image Registry"
+  label: "Image Registry"
+  required: false
+  type: string
+  group: "Images"
+- variable: imagePullPolicy
+  default: "Always"
+  description: "Image Pull Policy"
+  label: "Image Pull Policy"
+  required: false
+  type: string
+  group: "Images"
+- variable: imageName
+  default: "s3gw"
+  description: "Image Name"
+  label: "Image Name"
+  required: false
+  type: string
+  group: "Images"
+- variable: imageTag
+  default: "v0.3.0"
+  description: "Image Tag"
+  label: "Image Tag"
+  required: false
+  type: string
+  group: "Images"
+- variable: imageRegistry_ui
+  default: "ghcr.io/aquarist-labs"
+  description: "UI Image Registry"
+  label: "UI Image Registry"
+  required: false
+  type: string
+  group: "Images"
+- variable: imagePullPolicy_ui
+  default: "Always"
+  description: "UI Image Pull Policy"
+  label: "UI Image Pull Policy"
+  required: false
+  type: string
+  group: "Images"
+- variable: imageName_ui
+  default: "s3gw-ui"
+  description: "UI Image Name"
+  label: "UI Image Name"
+  required: false
+  type: string
+  group: "Images"
+- variable: imageTag_ui
+  default: "v0.3.0"
+  description: "UI Image Tag"
+  label: "UI Image Tag"
+  required: false
+  type: string
+  group: "Images"
