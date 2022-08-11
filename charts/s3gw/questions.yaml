@@ -58,7 +58,6 @@ questions:
   show_if: storageType=pvc
   description: "PVC Name"
   type: pvc
-  #default: "s3gw-pvc"
   label: PVC Name
   group: "Storage"
 - variable: storage
