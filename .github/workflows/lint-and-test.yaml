@@ -56,8 +56,6 @@ jobs:
         run: |
           ct install --target-branch \
             ${{ github.event.repository.default_branch }} \
-            --chart-repos \
-            ingress-traefik=https://helm.traefik.io/traefik \
             --helm-extra-set-args="--set=storageType=local,storage=/tmp/local-storage,enableIngress=false" \
             --helm-extra-args="--timeout=500s" \
             --debug
