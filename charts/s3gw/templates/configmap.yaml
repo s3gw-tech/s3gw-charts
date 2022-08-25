@@ -10,3 +10,4 @@ data:
 {{- if .Values.ui.enabled }}
   RGW_SERVICE_URL: 'https://{{ .Values.hostname }}'
 {{- end }}
+  RGW_DEFAULT_USER_SYSTEM: "1"
