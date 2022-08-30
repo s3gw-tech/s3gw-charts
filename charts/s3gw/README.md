@@ -1,13 +1,13 @@
 # Installation and options
 
-In order to install s3gw using helm, from this repository directly, first you
+In order to install s3gw using Helm, from this repository directly, first you
 must clone the repo:
 
     git clone https://github.com/aquarist-labs/s3gw-charts.git
 
 Before installing, familiarize yourself with the options, if necessary provide
 your own `values.yaml` file.
-Then change into the repository and install using helm:
+Then change into the repository and install using Helm:
 
     cd s3gw-charts
     helm install $RELEASE_NAME charts/s3gw --namespace $S3GW_NAMESPACE --create-namespace -f /path/to/your/custom/values.yaml
@@ -21,7 +21,7 @@ equipped with a [Traefik](https://helm.traefik.io/traefik) ingress controller.
 
 ## Options
 
-The helm chart can be customized for your Kubernetes environment. To do so,
+The Helm chart can be customized for your Kubernetes environment. To do so,
 either provide a `values.yaml` file with your settings, or set the options on
 the command line directly using `helm --set key=value`.
 
@@ -58,8 +58,8 @@ tls:
 
 ### Existing Volumes
 
-The s3gw is best deployed ontop of a [longhorn](https://longhorn.io) volume. If
-you have longhorn installed in your cluster, all appropriate resources will be
+The s3gw is best deployed on top of a [longhorn](https://longhorn.io) volume. If
+you have Longhorn installed in your cluster, all appropriate resources will be
 automatically deployed for you.
 Make sure the `storageType` is set to `"longhorn"` and the correct size for the
 claim is set in `storageSize`:
@@ -69,7 +69,7 @@ storageType: "longhorn"
 storageSize: 10Gi
 ```
 
-However if you want to use s3gw with other storage providers, you can do so too.
+However, if you want to use s3gw with other storage providers, you can do so too.
 You must first deploy a persistent volume claim for your storage provider. Then
 you deploy s3gw and set it to use that persistent volume claim (pvc) with:
 
@@ -78,11 +78,11 @@ storageType: "pvc"
 storage: the-name-of-the-pvc
 ```
 
-s3gw will then reuse that pvc instead of deploying a longhorn volume.
+s3gw will then reuse that PVC instead of deploying a Longhorn volume.
 
 You can also use local filesystem storage instead, by setting `storageType` to
 `"local"`, `storageSize` to the desired quota and `storage` to the path on the
-hosts filesystem, e.g:
+hosts' filesystem, e.g:
 
 ```yaml
 storageType: "local"
@@ -92,7 +92,7 @@ storage: /mnt/extra-storage/
 
 ### Image Settings
 
-In some cases, custom image settings are needed, e.g. in an air-gapped
+In some cases, custom image settings are needed, e.g. in an air-gaped
 environment, or for developers. In that case, you can modify the registry and
 image settings:
 
