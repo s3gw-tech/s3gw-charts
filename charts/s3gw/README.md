@@ -12,6 +12,17 @@ Then change into the repository and install using Helm:
     cd s3gw-charts
     helm install $RELEASE_NAME charts/s3gw --namespace $S3GW_NAMESPACE --create-namespace -f /path/to/your/custom/values.yaml
 
+### Rancher ###
+
+Installing s3gw via the Rancher App Catalog is made easy, the steps are as follow
+
+    -> Cluster -> Projects/Namespaces - create the s3gw namespace
+    -> Storage -> PersistentVolumeClaim -> Create -> choose the s3gw namespace -> provide a size and name it s3gw-pvc
+    -> Apps -> Repositories -> Create S3GW using the s3gw-charts Git URL https://github.com/aquarist-labs/s3gw-charts and the main branch
+    -> Apps -> Charts -> Install Traefik
+    -> Apps -> Charts -> Install S3GW -> Storage -> Storage Type: pvc -> PVC Name: s3gw-pvc
+
+
 ## Dependencies
 
 ### Traefik
