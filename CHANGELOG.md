@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 2022-09-01
+
+### Added
+
+- Set 'system' flag for default user
+- Added questions.yaml to support PVC selection
+
+### Changed
+
+- Removed Traefik installation from CI pipeline
+- Updated readme
+- Disable version check for linter
+- Configure UI and add information about CORS
+
+### Fixed
+
+- Fixed typos in documentation and code. - Add .editorconfig file.
+
 ## [0.3.0] - 2022-08-04
 
 ### Changed
