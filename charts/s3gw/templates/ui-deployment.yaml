@@ -25,8 +25,8 @@ spec:
       containers:
         - name: s3gw-ui
           image:
-            '{{ .Values.imageRegistry_ui }}/{{ .Values.imageName_ui }}:{{ .Values.imageTag_ui }}'
-          imagePullPolicy: {{ .Values.imagePullPolicy_ui }}
+            '{{ .Values.ui.imageRegistry }}/{{ .Values.ui.imageName }}:{{ .Values.ui.imageTag }}'
+          imagePullPolicy: {{ .Values.ui.imagePullPolicy }}
           ports:
             - containerPort: 8080
           envFrom:

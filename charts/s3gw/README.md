@@ -28,24 +28,33 @@ the command line directly using `helm --set key=value`.
 ### Hostname
 
 Use the `hostname` setting to configure the hostname under which you would like
-to make the gateway available:
+to make the gateway available via HTTPS. The `hostnameNoTLS` settings is the
+equivalent for HTTP connections.
 
 ```yaml
-hostname: s3gw.local
+hostname: "s3gw.local"
+hostnameNoTLS: "s3gw-no-tls.local"
 ```
 
-The plain HTTP endpoint will then be generated as: `no-tls-s3gw.local`
+Use the following settings to configure the user interface:
+
+```yaml
+ui:
+  hostname: "s3gw-ui.local"
+  hostnameNoTLS: "s3gw-ui-no-tls.local"
+```
 
 ### Ingress Options
 
 The chart can install an ingress resource for a Traefik ingress controller:
 ```yaml
-enableIngress: true
+ingress:
+  enabled: true
 ```
 
 ### TLS Certificates
 
-provide the TLS certificate in the `values.yaml` file to enable TLS at the
+Provide the TLS certificate in the `values.yaml` file to enable TLS at the
 ingress.
 Note that the connection between the ingress and s3gw itself within the cluster
 will not be TLS protected.
@@ -101,15 +110,9 @@ imageRegistry: "ghcr.io/aquarist-labs"
 imageName: "s3gw"
 imageTag: "latest"
 imagePullPolicy: "Always"
-imageRegistry_ui: "ghcr.io/aquarist-labs"
-imageName_ui: "s3gw-ui"
-imageTag_ui: "latest"
-imagePullPolicy_ui: "Always"
-```
-
-To configure the image and registry for the user interface, use:
-
-```yaml
-imageName_ui: "s3gw-ui"
-imageTag_ui: "latest"
+ui:
+  imageRegistry: "ghcr.io/aquarist-labs"
+  imageName: "s3gw-ui"
+  imageTag: "latest"
+  imagePullPolicy: "Always"
 ```
