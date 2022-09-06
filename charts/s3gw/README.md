@@ -20,7 +20,7 @@ Installing s3gw via the Rancher App Catalog is made easy, the steps are as follo
     -> Storage -> PersistentVolumeClaim -> Create -> choose the s3gw namespace -> provide a size and name it s3gw-pvc
     -> Apps -> Repositories -> Create s3gw using the s3gw-charts Git URL https://github.com/aquarist-labs/s3gw-charts and the main branch
     -> Apps -> Charts -> Install Traefik
-    -> Apps -> Charts -> Install S3GW -> Storage -> Storage Type: pvc -> PVC Name: s3gw-pvc
+    -> Apps -> Charts -> Install s3gw -> Storage -> Storage Type: pvc -> PVC Name: s3gw-pvc
 
 
 ## Dependencies
