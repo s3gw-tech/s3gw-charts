@@ -1,14 +1,14 @@
 questions:
 # Default access credentials:
 
-- variable: access_key
+- variable: accessKey
   default: test
   description: "Access Key"
   label: "Access Key"
   required: true
   type: string
   group: "General"
-- variable: secret_key
+- variable: secretKey
   default: test
   description: "Secret Key"
   label: "Secret Key"
@@ -17,7 +17,7 @@ questions:
   group: "General"
 - variable: hostname
   default: s3gw.local
-  description: "DNS URL for the S3 Service"
+  description: "Hostname of the S3 Service"
   label: "hostname"
   required: true
   type: string
@@ -82,7 +82,7 @@ questions:
   group: "Storage"
 
 #Ingress
-- variable: enableIngress
+- variable: ingress.enabled
   default: true
   description: "Enable Ingress"
   label: "Enable Ingress"
@@ -117,28 +117,28 @@ questions:
   required: false
   type: string
   group: "Images"
-- variable: imageRegistry_ui
+- variable: ui.imageRegistry
   default: "ghcr.io/aquarist-labs"
   description: "UI Image Registry"
   label: "UI Image Registry"
   required: false
   type: string
   group: "Images"
-- variable: imagePullPolicy_ui
+- variable: ui.imagePullPolicy
   default: "Always"
   description: "UI Image Pull Policy"
   label: "UI Image Pull Policy"
   required: false
   type: string
   group: "Images"
-- variable: imageName_ui
+- variable: ui.imageName
   default: "s3gw-ui"
   description: "UI Image Name"
   label: "UI Image Name"
   required: false
   type: string
   group: "Images"
-- variable: imageTag_ui
+- variable: ui.imageTag
   default: "v0.3.0"
   description: "UI Image Tag"
   label: "UI Image Tag"
