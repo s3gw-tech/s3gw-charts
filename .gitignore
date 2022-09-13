@@ -2,3 +2,4 @@ charts/**/Chart.lock
 charts/**/charts/*.tgz
 values.yaml
 /.idea/
+.DS_Store
