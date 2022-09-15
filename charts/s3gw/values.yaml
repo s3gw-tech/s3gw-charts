@@ -25,7 +25,7 @@ ui:
   imageRegistry: "ghcr.io/aquarist-labs"
   imagePullPolicy: "Always"
   imageName: "s3gw-ui"
-  imageTag: "v0.4.0"
+  imageTag: "v0.5.0"
 
 # 'hostname' is the hostname of the S3GW accessible via HTTPS.
 hostname: "s3gw.local"
@@ -63,4 +63,4 @@ storageSize: 10Gi
 imageRegistry: "ghcr.io/aquarist-labs"
 imagePullPolicy: "Always"
 imageName: "s3gw"
-imageTag: "v0.4.0"
+imageTag: "v0.5.0"
