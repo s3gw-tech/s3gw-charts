@@ -5,8 +5,8 @@
 
 Helm charts for [s3gw](https://github.com/aquarist-labs/s3gw-core)
 
-[Installation and options](charts/s3gw/README.md)
+[Quickstart](charts/s3gw/README.md)
 
-# Documentation
+## Documentation
 
-You can access our documentation [here](https://s3gw-docs.readthedocs.io/en/latest/).
+You can access our documentation [here](https://s3gw-docs.readthedocs.io/en/latest/helm-charts/).
