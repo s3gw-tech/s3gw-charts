@@ -9,11 +9,11 @@ type: application
 keywords:
   - storage
   - s3
-home: https://github.com/aquarist-labs/s3gw-core
+home: https://github.com/aquarist-labs/s3gw
 icon: https://raw.githubusercontent.com/aquarist-labs/aquarium-website/gh-pages/images/logo-xl.png
 sources:
   - https://github.com/aquarist-labs/s3gw-charts
-  - https://github.com/aquarist-labs/s3gw-core
+  - https://github.com/aquarist-labs/s3gw
   - https://github.com/aquarist-labs/ceph
 maintainers:
   - name: s3gw maintainers
