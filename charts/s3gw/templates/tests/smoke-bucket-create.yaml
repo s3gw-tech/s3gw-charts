@@ -26,6 +26,7 @@ spec:
             - name: S3_SECRET_ACCESS_KEY
               value: {{ .Values.secretKey | quote }}
             - name: S3_HOSTNAME
-              value: 's3gw-svc.{{ .Release.Namespace }}.svc.cluster.local'
+              value:
+                '{{ .Chart.Name }}-svc.{{ .Release.Namespace }}.svc.cluster.local'
       restartPolicy: Never
   backoffLimit: 3
