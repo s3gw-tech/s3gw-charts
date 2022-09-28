@@ -7,15 +7,26 @@ metadata:
   name: '{{ .Chart.Name }}-tls'
   namespace: {{ .Release.Namespace }}
   annotations:
+    traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/router.middlewares:
       '{{ .Release.Namespace }}-cors-header@kubernetescrd'
 spec:
   tls:
     - hosts:
         - '{{ .Values.hostname }}'
-      secretName: '{{ .Chart.Name }}-ingress-secret'
+      secretName: 'certificates-{{ .Values.hostname }}'
   rules:
     - host: '{{ .Values.hostname }}'
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: '{{ .Chart.Name }}-svc'
+                port:
+                  number: 80
+    - host: '*.{{ .Values.hostname }}'
       http:
         paths:
           - path: /
@@ -47,6 +58,16 @@ spec:
                 name: '{{ .Chart.Name }}-svc'
                 port:
                   number: 80
+    - host: '*.{{ .Values.hostnameNoTLS }}'
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: '{{ .Chart.Name }}-svc'
+                port:
+                  number: 80
 {{- if .Values.ui.enabled }}
 ---
 # UI TLS Ingress
@@ -56,13 +77,14 @@ metadata:
   name: '{{ .Chart.Name }}-ui-tls'
   namespace: {{ .Release.Namespace }}
   annotations:
+    traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/router.middlewares:
       '{{ .Release.Namespace }}-cors-header@kubernetescrd'
 spec:
   tls:
     - hosts:
         - '{{ .Values.ui.hostname }}'
-      secretName: '{{ .Chart.Name }}-ingress-secret'
+      secretName: 'certificates-{{ .Values.ui.hostname }}'
   rules:
     - host: '{{ .Values.ui.hostname }}'
       http:

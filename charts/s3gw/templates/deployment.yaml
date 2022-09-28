@@ -27,6 +27,10 @@ spec:
             '{{ .Values.imageRegistry }}/{{ .Values.imageName }}:{{ .Values.imageTag }}'
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           args:
+{{- if .Values.ingress.enabled }}
+            - "--rgw-dns-name"
+            - {{ .Values.hostname }}
+{{- end }}
             - "--rgw-backend-store"
             - $(RGW_BACKEND_STORE)
             - "--debug-rgw"
