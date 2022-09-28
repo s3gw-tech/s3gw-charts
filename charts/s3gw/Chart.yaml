@@ -1,7 +1,7 @@
 ---
 apiVersion: v2
 name: s3gw
-version: 0.5.0
+version: 0.5.1
 kubeVersion: ">=1.14"
 description: |
   Easy-to-use Open Source and Cloud Native S3 service for use on Rancher's Kubernetes.
