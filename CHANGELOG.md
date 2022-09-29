@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.6.0] - 2022-09-XX
+## [0.6.0] - 2022-09-29
 
 ### Changed
 
@@ -15,13 +15,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Give TLS certificates to UI ingress as well
 - Enable TLS endpoints for Traefik ingress
 
-## [0.5.0] - 2022-09-XX
+## [0.5.0] - 2022-09-15
 
 ### Added
 
 - The variables `hostnameNoTLS`, `ui.hostname` and `ui.hostnameNoTLS`
   has been added to configure the hostnames of the S3GW and S3GW-UI.
-  
+
 ### Changed
 
 - Defaulted `ui.enabled` to `true`.
@@ -30,8 +30,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Rename the `enableIngress` variable to `ingress.enabled`.
 - Relocate the variables `imageRegistry_ui`, `imageName_ui`,
   `imageTag_ui` and `imagePullPolicy_ui` to `ui.imageRegistry`,
-  `ui.imageName`, `ui.imageTag` and `ui.imagePullPolicy` 
-  
+  `ui.imageName`, `ui.imageTag` and `ui.imagePullPolicy`
+
 ## [0.4.0] - 2022-09-01
 
 ### Added
