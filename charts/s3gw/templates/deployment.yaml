@@ -49,10 +49,4 @@ spec:
       volumes:
         - name: s3gw-lh-store
           persistentVolumeClaim:
-{{- if eq .Values.storageType "pvc" }}
-            claimName: {{ .Values.storage }}
-{{- else if eq .Values.storageType "local" }}
-            claimName: '{{ .Release.Name }}-local-pvc'
-{{- else }}
-            claimName: s3gw-pvc
-{{- end }}
+            claimName: {{ .Release.Name }}-pvc
