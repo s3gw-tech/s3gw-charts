@@ -58,13 +58,20 @@ jobs:
 
       - name: Run chart-testing (install)
         run: |
+          export CONFIG="storageClass.name=local"
+          export CONFIG="$CONFIG,storageClass.create=true"
+          export CONFIG="$CONFIG,storageClass.local=true"
+          export CONFIG="$CONFIG,storageClass.localPath=/tmp/local-storage"
+          export CONFIG="$CONFIG,ingress.enabled=false"
+          export CONFIG="$CONFIG,ui.enabled=false"
+
           ct install --target-branch \
             ${{ github.event.repository.default_branch }} \
-            --helm-extra-set-args="--set=storageType=local,storage=/tmp/local-storage,ingress.enabled=false" \
+            --helm-extra-set-args="--set=${CONFIG}" \
             --helm-extra-args="--timeout=500s" \
             --debug
 
-  # If a psuh to main happens (i.e. when merging PRs), release the chart.
+  # If a push to main happens (i.e. when merging PRs), release the chart.
   release:
     if: ${{ github.event_name == 'push' }}
     permissions:
