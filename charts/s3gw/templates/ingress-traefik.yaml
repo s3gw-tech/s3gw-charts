@@ -6,6 +6,8 @@ kind: Ingress
 metadata:
   name: '{{ .Chart.Name }}-tls'
   namespace: {{ .Release.Namespace }}
+  labels:
+{{ include "s3gw.labels" . | indent 4 }}
   annotations:
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/router.middlewares:
@@ -43,6 +45,8 @@ kind: Ingress
 metadata:
   name: '{{ .Chart.Name }}-no-tls'
   namespace: {{ .Release.Namespace }}
+  labels:
+{{ include "s3gw.labels" . | indent 4 }}
   annotations:
     traefik.ingress.kubernetes.io/router.middlewares:
       '{{ .Release.Namespace }}-cors-header@kubernetescrd'
@@ -76,6 +80,8 @@ kind: Ingress
 metadata:
   name: '{{ .Chart.Name }}-ui-tls'
   namespace: {{ .Release.Namespace }}
+  labels:
+{{ include "s3gw.labels" . | indent 4 }}
   annotations:
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/router.middlewares:
@@ -103,6 +109,8 @@ kind: Ingress
 metadata:
   name: '{{ .Chart.Name }}-ui-no-tls'
   namespace: {{ .Release.Namespace }}
+  labels:
+{{ include "s3gw.labels" . | indent 4 }}
   annotations:
     traefik.ingress.kubernetes.io/router.middlewares:
       '{{ .Release.Namespace }}-cors-header@kubernetescrd'
@@ -126,6 +134,8 @@ kind: Middleware
 metadata:
   name: cors-header
   namespace: {{ .Release.Namespace }}
+  labels:
+{{ include "s3gw.labels" . | indent 4 }}
 spec:
   headers:
     accessControlAllowMethods:
