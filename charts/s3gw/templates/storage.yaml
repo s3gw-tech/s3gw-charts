@@ -4,6 +4,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: '{{ .Release.Name }}-pvc'
   namespace: {{ .Release.Namespace }}
+  labels:
+{{ include "s3gw.labels" . | indent 4 }}
 spec:
   storageClassName: {{ .Values.storageClass.name }}
   accessModes:
@@ -18,6 +20,8 @@ kind: StorageClass
 metadata:
   name: {{ .Values.storageClass.name }}
   namespace: {{ .Release.Namespace }}
+  labels:
+{{ include "s3gw.labels" . | indent 4 }}
 volumeBindingMode: Immediate
 {{- if .Values.storageClass.local }}
 provisioner: kubernetes.io/no-provisioner
@@ -38,6 +42,7 @@ kind: PersistentVolume
 metadata:
   name: '{{ .Release.Name }}.{{ .Release.Namespace }}-local-pv'
   labels:
+{{ include "s3gw.labels" . | indent 4 }}
     type: local
 spec:
   storageClassName: {{ .Values.storageClass.name }}
