@@ -1,0 +1,78 @@
+---
+name: Lint
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: v3.8.1
+
+      - uses: actions/setup-python@v3
+        with:
+          python-version: 3.7
+
+      - name: Pre-Commit Checks
+        uses: pre-commit/action@v3.0.0
+
+      - name: Set up chart-testing
+        uses: helm/chart-testing-action@v2.2.1
+        with:
+          version: v3.6.0
+
+      - name: Create kind cluster
+        uses: helm/kind-action@v1.2.0
+
+      - name: Run chart-testing (lint)
+        run: |
+          ct lint --target-branch \
+            ${{ github.event.repository.default_branch }} \
+            --check-version-increment=false \
+            --validate-maintainers=false
+
+  lint-templates:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: v3.8.1
+
+      - name: Create kind cluster
+        uses: helm/kind-action@v1.2.0
+
+      - name: Install Traefik
+        run: |
+          helm repo add traefik https://helm.traefik.io/traefik
+          helm repo update
+          helm install traefik traefik/traefik \
+            --namespace=traefik --create-namespace
+
+      - name: Try templating default settings
+        run: |
+          helm template s3gw charts/s3gw > default.yaml
+          kubectl apply -f default.yaml --dry-run=server
+
+      - name: Try templating private registry
+        run: |
+          helm template s3gw charts/s3gw \
+            -f tests/private-registry.yaml > private-registry.yaml
+          kubectl apply -f private-registry.yaml --dry-run=server

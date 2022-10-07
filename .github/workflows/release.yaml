@@ -2,16 +2,7 @@
 name: Lint, Test and Release
 
 on:
-  push:
-    branches:
-      - main
-
-  pull_request:
-    branches:
-      - main
-    paths:
-      - '.github/workflows/lint-and-test.yaml'
-      - 'charts/**/*'
+  workflow_call:
 
 jobs:
   lint-and-test:
@@ -49,7 +40,6 @@ jobs:
         run: |
           ct lint --target-branch \
             ${{ github.event.repository.default_branch }} \
-            --check-version-increment=false \
             --validate-maintainers=false
 
       - name: Create kind cluster
@@ -57,6 +47,7 @@ jobs:
         if: steps.list-changed.outputs.changed == 'true'
 
       - name: Run chart-testing (install)
+        if: steps.list-changed.outputs.changed == 'true'
         run: |
           export CONFIG="storageClass.name=local"
           export CONFIG="$CONFIG,storageClass.create=true"
