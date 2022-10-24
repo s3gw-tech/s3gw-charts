@@ -148,4 +148,6 @@ spec:
       - "*"
     accessControlAllowHeaders:
       - "*"
+    accessControlExposeHeaders:
+      - "ETag"
 {{- end }}
