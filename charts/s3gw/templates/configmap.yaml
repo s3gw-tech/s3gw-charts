@@ -7,9 +7,17 @@ metadata:
   labels:
 {{ include "s3gw.labels" . | indent 4}}
 data:
+{{- if .Values.ingress.enabled }}
+  RGW_DNS_NAME: >-
+    {{ .Values.serviceName }}.{{ .Values.publicDomain }},
+    {{ .Values.serviceName }}.{{ .Release.Namespace }}.{{ .Values.privateDomain }}
+{{- else}}
+  RGW_DNS_NAME: >-
+    {{ .Values.serviceName }}.{{ .Release.Namespace }}.{{ .Values.privateDomain }}
+{{- end }}
   RGW_BACKEND_STORE: "sfs"
-  DEBUG_RGW: "1"
+  DEBUG_RGW: '{{ .Values.logLevel }}'
 {{- if .Values.ui.enabled }}
-  RGW_SERVICE_URL: 'https://{{ .Values.hostname }}'
+  RGW_SERVICE_URL: 'https://{{ .Values.serviceName }}.{{ .Values.publicDomain }}'
 {{- end }}
   RGW_DEFAULT_USER_SYSTEM: "1"

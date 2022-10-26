@@ -26,10 +26,8 @@ spec:
           image: {{ include "s3gw.image" . | quote }}
           imagePullPolicy: {{ default "IfNotPresent" .Values.imagePullPolicy }}
           args:
-{{- if .Values.ingress.enabled }}
             - "--rgw-dns-name"
-            - {{ .Values.hostname }}
-{{- end }}
+            - $(RGW_DNS_NAME)
             - "--rgw-backend-store"
             - $(RGW_BACKEND_STORE)
             - "--debug-rgw"

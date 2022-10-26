@@ -1,20 +1,30 @@
 ---
 questions:
   # General settings
+  - variable: serviceName
+    default: s3gw
+    description: "S3 Service Name"
+    label: "S3 Service Name"
+    required: true
+    type: string
+    group: "General"
+
   - variable: accessKey
     default: test
     description: "S3 Access Key"
-    label: "Default Access Key"
+    label: "S3 Access Key"
     required: true
     type: string
     group: "General"
+
   - variable: secretKey
     default: test
     description: "S3 Secret Key"
-    label: "Default Secret Key"
+    label: "S3 Secret Key"
     required: true
     type: string
     group: "General"
+
   - variable: ingress.enabled
     default: true
     description: "Deploy an Ingress (Required for TLS and UI)"
@@ -22,14 +32,24 @@ questions:
     required: true
     type: boolean
     group: "General"
-  - variable: hostname
+
+  - variable: publicDomain
     show_if: ingress.enabled=true
-    default: s3gw.local
-    description: "Hostname of the S3 Service (FQDN)"
-    label: "Hostname"
+    default: 127.0.0.1.omg.howdoi.website
+    description: "Public domain of the S3 Service used by the Ingress"
+    label: "Public Domain"
     required: true
     type: string
     group: "General"
+
+  - variable: privateDomain
+    default: svc.cluster.local
+    description: "Private domain of the S3 Service used inside the Kubernetes cluster"
+    label: "Private Domain"
+    required: true
+    type: string
+    group: "General"
+
   - variable: ui.enabled
     default: false
     description: "UI Enabled"
@@ -37,11 +57,21 @@ questions:
     required: true
     type: boolean
     group: "General"
-  - variable: ui.hostname
-    show_if: ui.enabled=true && ingress.enabled=true
-    default: s3gw-ui.local
-    description: "Hostname of the S3 UI (FQDN)"
-    label: "UI Hostname"
+
+  - variable: ui.serviceName
+    default: s3gw-ui
+    description: "UI Service Name"
+    label: "UI Service Name"
+    required: true
+    type: string
+    group: "General"
+
+  - variable: ui.publicDomain
+    show_if: ingress.enabled=true
+    default: 127.0.0.1.omg.howdoi.website
+    description: "Public domain of the UI Service used by the Ingress"
+    label: "UI Public Domain"
+    required: true
     type: string
     group: "General"
 
@@ -49,11 +79,12 @@ questions:
   - variable: tls.crt
     show_if: ingress.enabled=true
     description: |
-      TLS Certificate for the Gateway (base64 encoded, CN must match hostname)
+      TLS Certificate for the Gateway (base64 encoded, CN must match serviceName + publicDomain)
     label: "TLS Cert"
     required: false
     type: string
     group: "TLS"
+
   - variable: tls.key
     show_if: ingress.enabled=true
     description: "TLS Key for the Gateway (base64 encoded)"
@@ -61,13 +92,15 @@ questions:
     required: false
     type: string
     group: "TLS"
+
   - variable: ui.tls.crt
     show_if: ui.enabled=true && ingress.enabled=true
     description: |
-      TLS Certificate for the UI (base64 encoded, CN must match ui.hostname)
+      TLS Certificate for the UI (base64 encoded, CN must match ui.serviceName + ui.publicDomain)
     label: "TLS Cert"
     type: string
     group: "TLS"
+
   - variable: ui.tls.key
     show_if: ui.enabled=true && ingress.enabled=true
     description: "TLS Key for the UI (base64 encoded)"
@@ -82,6 +115,7 @@ questions:
     default: 10Gi
     label: "Storage Size"
     group: "Storage"
+
   - variable: storageClass.name
     description: "Storage Class Name"
     type: string
@@ -89,6 +123,7 @@ questions:
     required: true
     label: "Storage Class"
     group: "Storage"
+
   - variable: storageClass.create
     description: |
       Create a new opinionated storage class backed by longhorn.io
@@ -166,6 +201,14 @@ questions:
     default:
     description: "UI Image Tag"
     label: "UI Image Tag"
+    required: false
+    type: string
+    group: "Advanced"
+
+  - variable: logLevel
+    default: "1"
+    description: "s3gw pod log level, lower values are less verbose"
+    label: "s3gw pod log level"
     required: false
     type: string
     group: "Advanced"
