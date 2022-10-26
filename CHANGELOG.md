@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog][1],
 and this project adheres to [Semantic Versioning][2].
 
+## [0.9.0] - Unreleased
+
+### Added
+
+- Configuration options: `serviceName`, `publicDomain`, `privateDomain`
+  used to configure the s3gw-service's public domain used by the Ingress
+  and the private domain used inside the Kubernetes cluster.
+- Defaulted values:
+  - `serviceName` : s3gw
+  - `publicDomain` : be.127.0.0.1.omg.howdoi.website
+  - `privateDomain` : svc.cluster.local
+- Configuration options: `ui.serviceName`, `ui.publicDomain`
+  used to configure the s3gw-ui-service's public domain used by
+  the Ingress.
+- Defaulted values:
+  - `ui.serviceName` : s3gw-ui
+  - `ui.publicDomain` : fe.127.0.0.1.omg.howdoi.website
+- Configuration option: `logLevel` used to set the s3gw-service's
+  log verbosity.
+- Defaulted value: `1`
+
+### Removed
+
+- Configuration options: `hostname` and `ui.hostname`, both superseded
+  by the newly added variables.
+
 ## [0.8.0] - 2022-11-10
 
 ### Changed
