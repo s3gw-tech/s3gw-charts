@@ -144,6 +144,7 @@ spec:
       - "HEAD"
       - "POST"
       - "PUT"
+      - "OPTIONS"
     accessControlAllowOriginList:
       - "*"
     accessControlAllowHeaders:
