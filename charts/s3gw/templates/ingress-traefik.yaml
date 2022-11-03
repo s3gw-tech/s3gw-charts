@@ -52,7 +52,7 @@ metadata:
       '{{ .Release.Namespace }}-cors-header@kubernetescrd'
 spec:
   rules:
-    - host: '{{ .Values.hostnameNoTLS }}'
+    - host: '{{ .Values.hostname }}'
       http:
         paths:
           - path: /
@@ -62,7 +62,7 @@ spec:
                 name: '{{ .Chart.Name }}-svc'
                 port:
                   number: 80
-    - host: '*.{{ .Values.hostnameNoTLS }}'
+    - host: '*.{{ .Values.hostname }}'
       http:
         paths:
           - path: /
@@ -116,7 +116,7 @@ metadata:
       '{{ .Release.Namespace }}-cors-header@kubernetescrd'
 spec:
   rules:
-    - host: '{{ .Values.ui.hostnameNoTLS }}'
+    - host: '{{ .Values.ui.hostname }}'
       http:
         paths:
           - path: /
