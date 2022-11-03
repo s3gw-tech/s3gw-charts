@@ -18,8 +18,6 @@ ui:
   enabled: true
   # 'hostname' is the hostname of the S3GW user interface accessible via HTTPS.
   hostname: "s3gw-ui.local"
-  # 'hostnameNoTLS' is the hostname of the S3GW user interface accessible via HTTP.
-  hostnameNoTLS: "s3gw-ui-no-tls.local"
 
   # TLS certificate and key
   # Base64 encoded in one line. The CN must match .ui.hostname
@@ -32,8 +30,6 @@ ui:
 
 # 'hostname' is the hostname of the S3GW accessible via HTTPS.
 hostname: "s3gw.local"
-# 'hostnameNoTLS' is the hostname of the S3GW accessible via HTTP.
-hostnameNoTLS: "s3gw-no-tls.local"
 
 # Ingress configuration.
 ingress:
