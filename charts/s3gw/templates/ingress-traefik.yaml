@@ -16,6 +16,7 @@ spec:
   tls:
     - hosts:
         - '{{ .Values.hostname }}'
+        - '*.{{ .Values.hostname }}'
       secretName: 'certificates-{{ .Values.hostname }}'
   rules:
     - host: '{{ .Values.hostname }}'
