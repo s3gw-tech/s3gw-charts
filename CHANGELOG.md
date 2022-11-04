@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning][2].
 - Expose `ETag` header in the Traefik s3gw ingress to allow multi-part
   uploads via browser (gh#aquarist-labs/s3gw#170).
 - Add the `OPTIONS` method to the Traefik CORS configuration (gh#aquarist-labs/s3gw#188).
+- Fix an issue in the GW ingress related to TLS + wildcard host.
 
 ## [0.7.0] - 2022-10-20
 
