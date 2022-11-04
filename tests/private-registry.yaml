@@ -1,0 +1,12 @@
+---
+imageRegistry: example.com:5000
+imageName: prefix/s3gw
+imageTag: v0.6.1-private
+ui:
+  imageName: prefix/s3gw
+  imageTag: v0.6.1-private
+imagePullPolicy: Always
+imageCredentials:
+  username: foo
+  password: bar
+  email: foobar@example.com
