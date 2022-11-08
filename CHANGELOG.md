@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning][2].
 
 ### Changed
 
-- Expose `ETag` header in the Traefik s3gw ingress to allow multi-part
+- Expose `ETag` header in the Traefik s3gw ingress to allow multipart
   uploads via browser (gh#aquarist-labs/s3gw#170).
 - Add the `OPTIONS` method to the Traefik CORS configuration (gh#aquarist-labs/s3gw#188).
 - Fix an issue in the GW ingress related to TLS + wildcard host.
@@ -22,7 +22,7 @@ and this project adheres to [Semantic Versioning][2].
 
 - Properly label all components of the chart to give helm hints about what is
   part of the chart.
-- Redesing registry access variables to be usable with private registries
+- Redesign registry access variables to be usable with private registries
 - Improve rancher questions to guide the installation in a more user friendly
   form
 
