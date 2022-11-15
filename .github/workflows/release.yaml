@@ -3,6 +3,7 @@ name: Lint, Test and Release
 
 on:
   workflow_call:
+  workflow_dispatch:
 
 jobs:
   lint-and-test:
@@ -64,7 +65,7 @@ jobs:
 
   # If a push to main happens (i.e. when merging PRs), release the chart.
   release:
-    if: ${{ github.event_name == 'push' }}
+    if: ${{ github.event_name == 'push' || github.event_name = 'workflow_dispatch' }}
     permissions:
       contents: write
     runs-on: ubuntu-latest
