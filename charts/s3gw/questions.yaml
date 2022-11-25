@@ -1,6 +1,98 @@
 ---
 questions:
   # General settings
+
+  - variable: useCertManager
+    label: Use cert-manager
+    default: "true"
+    description: "Use cert-manager to provision TLS certificates"
+    type: boolean
+    group: "General"
+
+  - variable: tls.publicDomain.crt
+    show_if: "useCertManager=false"
+    description: "S3 TLS certificate (Public Domain)"
+    label: "S3 TLS certificate (Public Domain)"
+    type: string
+    group: "General"
+
+  - variable: tls.publicDomain.key
+    show_if: "useCertManager=false"
+    description: "S3 TLS key (Public Domain)"
+    label: "S3 TLS key (Public Domain)"
+    type: string
+    group: "General"
+
+  - variable: tls.privateDomain.crt
+    show_if: "useCertManager=false"
+    description: "S3 TLS certificate (Private Domain)"
+    label: "S3 TLS certificate (Private Domain)"
+    type: string
+    group: "General"
+
+  - variable: tls.privateDomain.key
+    show_if: "useCertManager=false"
+    description: "S3 TLS key (Private Domain)"
+    label: "S3 TLS key (Private Domain)"
+    type: string
+    group: "General"
+
+  - variable: tls.ui.publicDomain.crt
+    show_if: "useCertManager=false"
+    description: "UI TLS certificate"
+    label: "UI TLS certificate"
+    type: string
+    group: "General"
+
+  - variable: tls.ui.publicDomain.key
+    show_if: "useCertManager=false"
+    description: "UI TLS key"
+    label: "UI TLS key"
+    type: string
+    group: "General"
+
+  - variable: certManagerNamespace
+    show_if: "useCertManager=true"
+    label: cert-manager's namespace
+    default: "cert-manager"
+    description: "cert-manager's namespace"
+    type: string
+    required: false
+
+  - variable: useCustomTlsIssuer
+    show_if: "useCertManager=true"
+    label: Use your own TLS issuer
+    default: "false"
+    description: "Use your own TLS issuer"
+    type: boolean
+    group: "General"
+    show_subquestion_if: true
+    subquestions:
+    - variable: customTlsIssuer
+      label: Custom TLS issuer
+      description: "Name of the custom TLS issuer to use"
+      type: string
+      required: false
+
+  - variable: tlsIssuer
+    show_if: "useCertManager=true&&useCustomTlsIssuer=false"
+    label: TLS issuer
+    description: "Name of the predefined TLS issuer to use"
+    type: enum
+    required: false
+    group: "General"
+    options:
+      - "s3gw-issuer"
+      - "s3gw-letsencrypt-issuer"
+
+  - variable: email
+    show_if: "useCertManager=true&&tlsIssuer=s3gw-letsencrypt-issuer"
+    label: email address to use with s3gw-letsencrypt-issuer
+    description: "email address to use with s3gw-letsencrypt-issuer"
+    type: string
+    required: false
+    group: "General"
+
   - variable: serviceName
     default: s3gw
     description: "S3 Service Name"
@@ -35,7 +127,7 @@ questions:
 
   - variable: publicDomain
     show_if: ingress.enabled=true
-    default: 127.0.0.1.omg.howdoi.website
+    default: be.127.0.0.1.omg.howdoi.website
     description: "Public domain of the S3 Service used by the Ingress"
     label: "Public Domain"
     required: true
@@ -68,45 +160,12 @@ questions:
 
   - variable: ui.publicDomain
     show_if: ingress.enabled=true
-    default: 127.0.0.1.omg.howdoi.website
+    default: fe.127.0.0.1.omg.howdoi.website
     description: "Public domain of the UI Service used by the Ingress"
     label: "UI Public Domain"
     required: true
     type: string
     group: "General"
-
-  # TLS settings
-  - variable: tls.crt
-    show_if: ingress.enabled=true
-    description: |
-      TLS Certificate for the Gateway (base64 encoded, CN must match serviceName + publicDomain)
-    label: "TLS Cert"
-    required: false
-    type: string
-    group: "TLS"
-
-  - variable: tls.key
-    show_if: ingress.enabled=true
-    description: "TLS Key for the Gateway (base64 encoded)"
-    label: "TLS Key"
-    required: false
-    type: string
-    group: "TLS"
-
-  - variable: ui.tls.crt
-    show_if: ui.enabled=true && ingress.enabled=true
-    description: |
-      TLS Certificate for the UI (base64 encoded, CN must match ui.serviceName + ui.publicDomain)
-    label: "TLS Cert"
-    type: string
-    group: "TLS"
-
-  - variable: ui.tls.key
-    show_if: ui.enabled=true && ingress.enabled=true
-    description: "TLS Key for the UI (base64 encoded)"
-    label: "TLS Key"
-    type: string
-    group: "TLS"
 
   # Storage
   - variable: storageSize
