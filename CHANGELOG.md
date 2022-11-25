@@ -5,6 +5,51 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog][1],
 and this project adheres to [Semantic Versioning][2].
 
+## [0.10.0] - Unreleased
+
+### Added
+
+- **TLS Certificate Management**
+  - Ability to use an optional certificate manager:
+  [cert-manager](https://cert-manager.io/),
+    to automatically provision TLS certificates. When using such feature,
+    `cert-manager` installation is a prerequisite.
+  - Usage of `cert-manager` is enabled by default and can be disabled
+    with the flag:
+    - `useCertManager`
+  - `cert-manager` namespace can be set with the following chart field:
+    - `certManagerNamespace`
+  - `cert-manager` will provision certificates for:
+    - S3 service's ingress (public domain)
+    - UI service's ingress (public domain)
+    - S3 service's internal endpoint (Kubernetes private domain)
+  - When using `cert-manager`, the user can choose between
+    two predefined `ClusterIssuer`:
+    - `s3gw-issuer`
+    - `s3gw-letsencrypt-issuer`
+  - `s3gw-issuer` can be used to generate self-signed certificates.
+  - `s3gw-letsencrypt-issuer` should be used for production environments.
+  - Please, note that when using a certificate manager, the `s3gw-issuer`
+    `ClusterIssuer` will be used for generating certificates for the S3 service's
+    internal endpoint.
+  - When the user chooses not to employ `cert-manager`,
+    TLS secrets must be filled manually. The following fields
+    have been added to the chart for this purpose:
+    - `tls.publicDomain.crt`
+    - `tls.publicDomain.key`
+    - `tls.privateDomain.crt`
+    - `tls.privateDomain.key`
+    - `tls.ui.publicDomain.crt`
+    - `tls.ui.publicDomain.key`
+  - The user can choose a custom `ClusterIssuer` by setting the following chart fields:
+    - `useCustomTlsIssuer` and `customTlsIssuer`
+
+### Removed
+
+- Configuration options superseded by the newly added variables:
+  - `tls.crt`, `tls.key`
+  - `ui.tls.crt`, `ui.tls.key`
+
 ## [0.9.0] - 2022-12-01
 
 ### Added
