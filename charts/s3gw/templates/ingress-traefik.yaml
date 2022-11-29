@@ -1,10 +1,10 @@
 {{ if .Values.ingress.enabled }}
 ---
-# TLS Ingress
+# Ingress
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: '{{ .Chart.Name }}-tls'
+  name: '{{ .Chart.Name }}'
   namespace: {{ .Release.Namespace }}
   labels:
 {{ include "s3gw.labels" . | indent 4 }}
@@ -15,28 +15,28 @@ metadata:
 spec:
   tls:
     - hosts:
-        - '{{ .Values.hostname }}'
-        - '*.{{ .Values.hostname }}'
-      secretName: 'certificates-{{ .Values.hostname }}'
+        - '{{ .Values.serviceName }}.{{ .Values.publicDomain }}'
+        - '*.{{ .Values.serviceName }}.{{ .Values.publicDomain }}'
+      secretName: 'certificates-{{ .Values.serviceName }}.{{ .Values.publicDomain }}'
   rules:
-    - host: '{{ .Values.hostname }}'
+    - host: '{{ .Values.serviceName }}.{{ .Values.publicDomain }}'
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: '{{ .Chart.Name }}-svc'
+                name: '{{ .Values.serviceName }}'
                 port:
                   number: 80
-    - host: '*.{{ .Values.hostname }}'
+    - host: '*.{{ .Values.serviceName }}.{{ .Values.publicDomain }}'
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: '{{ .Chart.Name }}-svc'
+                name: '{{ .Values.serviceName }}'
                 port:
                   number: 80
 ---
@@ -53,33 +53,33 @@ metadata:
       '{{ .Release.Namespace }}-cors-header@kubernetescrd'
 spec:
   rules:
-    - host: '{{ .Values.hostname }}'
+    - host: '{{ .Values.serviceName }}.{{ .Values.publicDomain }}'
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: '{{ .Chart.Name }}-svc'
+                name: '{{ .Values.serviceName }}'
                 port:
                   number: 80
-    - host: '*.{{ .Values.hostname }}'
+    - host: '*.{{ .Values.serviceName }}.{{ .Values.publicDomain }}'
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: '{{ .Chart.Name }}-svc'
+                name: '{{ .Values.serviceName }}'
                 port:
                   number: 80
 {{- if .Values.ui.enabled }}
 ---
-# UI TLS Ingress
+# UI Ingress
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: '{{ .Chart.Name }}-ui-tls'
+  name: '{{ .Chart.Name }}-ui'
   namespace: {{ .Release.Namespace }}
   labels:
 {{ include "s3gw.labels" . | indent 4 }}
@@ -90,17 +90,17 @@ metadata:
 spec:
   tls:
     - hosts:
-        - '{{ .Values.ui.hostname }}'
-      secretName: 'certificates-{{ .Values.ui.hostname }}'
+        - '{{ .Values.ui.serviceName }}.{{ .Values.ui.publicDomain }}'
+      secretName: 'certificates-{{ .Values.ui.serviceName }}.{{ .Values.ui.publicDomain }}'
   rules:
-    - host: '{{ .Values.ui.hostname }}'
+    - host: '{{ .Values.ui.serviceName }}.{{ .Values.ui.publicDomain }}'
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: '{{ .Chart.Name }}-ui-svc'
+                name: '{{ .Values.ui.serviceName }}'
                 port:
                   number: 80
 ---
@@ -117,14 +117,14 @@ metadata:
       '{{ .Release.Namespace }}-cors-header@kubernetescrd'
 spec:
   rules:
-    - host: '{{ .Values.ui.hostname }}'
+    - host: '{{ .Values.ui.serviceName }}.{{ .Values.ui.publicDomain }}'
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: '{{ .Chart.Name }}-ui-svc'
+                name: '{{ .Values.ui.serviceName }}'
                 port:
                   number: 80
 {{- end }}
