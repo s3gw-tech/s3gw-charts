@@ -14,6 +14,10 @@ spec:
       protocol: TCP
       port: 80
       targetPort: s3
+    - name: s3-tls
+      protocol: TCP
+      port: 443
+      targetPort: s3-tls
 {{- if .Values.ui.enabled }}
 ---
 apiVersion: v1
