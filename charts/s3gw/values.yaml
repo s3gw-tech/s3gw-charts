@@ -63,9 +63,9 @@ storageClass:
 # --- Developer Options ---
 #
 # Image settings:
-# imageRegistry: "ghcr.io"
+# imageRegistry: "quay.io"
 # imagePullPolicy: "Always"
-# imageName: "aquarist-labs/s3gw"
+# imageName: "s3gw/s3gw"
 # imageTag: "v0.0.0"
 # imageCredentials:
 #   username: foo
