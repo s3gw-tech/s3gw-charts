@@ -43,12 +43,21 @@ and this project adheres to [Semantic Versioning][2].
     - `tls.ui.publicDomain.key`
   - The user can choose a custom `ClusterIssuer` by setting the following chart fields:
     - `useCustomTlsIssuer` and `customTlsIssuer`
+- **Internal TLS endpoint for the S3 service**
+  - The `s3gw`-Pod can now accept TLS connections on port `7481`.
+  - The `s3gw-cluster-ip-tls` secret is used to configure both
+    `ssl_certificate` and `ssl_private_key`.
+  - The `s3gw`-ClusterIP-Service has been extended to link the `s3gw`-Pod port
+    `7481` with the `s3gw`-ClusterIP-Service port `443`.
 
 ### Removed
 
 - Configuration options superseded by the newly added variables:
   - `tls.crt`, `tls.key`
   - `ui.tls.crt`, `ui.tls.key`
+- Dropped some entries from `s3gw-config` map:
+  - `RGW_DNS_NAME`, `RGW_BACKEND_STORE`, `DEBUG_RGW`
+  - when applicable, these values are now taken directly from the chart.
 
 ## [0.9.0] - 2022-12-01
 
