@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog][1],
 and this project adheres to [Semantic Versioning][2].
 
+## [0.9.1] - 2022-12-21
+
+- Bugfix Release: https://github.com/aquarist-labs/s3gw/issues/262
+
 ## [0.9.0] - 2022-12-01
 
 ### Added
