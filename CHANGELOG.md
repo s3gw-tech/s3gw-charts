@@ -59,6 +59,10 @@ and this project adheres to [Semantic Versioning][2].
   - `RGW_DNS_NAME`, `RGW_BACKEND_STORE`, `DEBUG_RGW`
   - when applicable, these values are now taken directly from the chart.
 
+## [0.9.1] - 2022-12-21
+
+- Bugfix Release: gh#aquarist-labs/s3gw#262
+
 ## [0.9.0] - 2022-12-01
 
 ### Added
