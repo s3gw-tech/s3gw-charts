@@ -2,7 +2,10 @@
 name: Lint, Test and Release
 
 on:
-  workflow_call:
+  push:
+    branch:
+      - "v*"
+
   workflow_dispatch:
 
 jobs:
