@@ -6,6 +6,8 @@ kind: Certificate
 metadata:
   name: s3gw-ca-cert
   namespace: {{ .Values.certManagerNamespace }}
+  labels:
+{{ include "s3gw.labels" . | indent 4}}
 spec:
   commonName: s3gw-ca
   isCA: true
@@ -23,6 +25,8 @@ kind: Certificate
 metadata:
   name: s3gw-cluster-ip-cert
   namespace: {{ .Release.Namespace }}
+  labels:
+{{ include "s3gw.labels" . | indent 4}}
 spec:
   dnsNames:
     - '{{ .Values.serviceName }}.{{ .Release.Namespace }}.{{ .Values.privateDomain }}'
