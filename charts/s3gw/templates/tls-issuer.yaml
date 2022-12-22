@@ -5,6 +5,8 @@ apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
   name: s3gw-self-signed-issuer
+  labels:
+{{ include "s3gw.labels" . | indent 4}}
 spec:
   selfSigned: {}
 ---
@@ -13,6 +15,8 @@ apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
   name: s3gw-issuer
+  labels:
+{{ include "s3gw.labels" . | indent 4}}
 spec:
   ca:
     secretName: s3gw-ca-root
@@ -22,6 +26,8 @@ apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
   name: s3gw-letsencrypt-issuer
+  labels:
+{{ include "s3gw.labels" . | indent 4}}
 spec:
   acme:
     email: {{ .Values.email }}
