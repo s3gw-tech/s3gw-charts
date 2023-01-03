@@ -4,7 +4,7 @@
 [![Lint][lint-badge]][lint-url]
 [![Slack][slack-badge]][slack-url]
 
-Helm charts for [s3gw](https://github.com/aquarist-labs/s3gw-core)
+Helm charts for [s3gw](https://github.com/aquarist-labs/s3gw)
 
 s3gw is an S3-compatible service focused on deployments in a Kubernetes
 environment backed by any PVC, including Longhorn. Since its inception, the
