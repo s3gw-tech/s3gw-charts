@@ -5,7 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog][1],
 and this project adheres to [Semantic Versioning][2].
 
-## Unreleased
+## [0.11.0] - Unreleased
+
+### Added
+
+- Configuration options: `useExistingSecret` and `defaultUserCredentialsSecret`.
+  These fields allow the user to specify an existing secret containing
+  the S3 credentials for the default user.
+- `useExistingSecret` is a boolean field defaulted to false.
+- `defaultUserCredentialsSecret` is a string field denoting a `secret` in the `s3gw`
+  namespace. It must contain 2 keys:
+  - `RGW_DEFAULT_USER_ACCESS_KEY` that is the S3 Access Key for the default user.
+  - `RGW_DEFAULT_USER_SECRET_KEY` that is the S3 Secret Key for the default user.
+- When `useExistingSecret` is set to `false`, the chart will create
+  the secret using values from the preexisting fields `accessKey` and `secretKey`.
+- Setting `accessKey` or `secretKey` as the empty string, will force the Chart
+  to compute random alphanumeric values for the fields.
+- Defaulted values:
+  - `useExistingSecret`: false
+  - `defaultUserCredentialsSecret`: s3gw-creds
 
 ## [0.10.0] - 2022-12-22
 
