@@ -4,13 +4,15 @@ name: s3gw
 version: 0.13.0
 kubeVersion: ">=1.14"
 description: |
-  Easy-to-use Open Source and Cloud Native S3 service for use on Rancher's Kubernetes.
+  Easy-to-use Open Source and Cloud Native S3 service for use on Rancher's
+  Kubernetes.
 type: application
 keywords:
   - storage
   - s3
 home: https://github.com/aquarist-labs/s3gw
-icon: https://raw.githubusercontent.com/aquarist-labs/aquarium-website/gh-pages/images/logo-xl.png
+icon: |
+  https://raw.githubusercontent.com/aquarist-labs/aquarium-website/gh-pages/images/logo-xl.png
 sources:
   - https://github.com/aquarist-labs/s3gw-charts
   - https://github.com/aquarist-labs/s3gw
@@ -22,4 +24,10 @@ maintainers:
 appVersion: "latest"
 deprecated: false
 annotations:
+  artifacthub.io/category: storage
+  artifacthub.io/links:
+    - name: homepage
+      url: https://s3gw.io/
+    - name: support
+      url: https://github.com/aquarist-labs/s3gw/issues
   app.aquarist-labs.io/name: s3gw
