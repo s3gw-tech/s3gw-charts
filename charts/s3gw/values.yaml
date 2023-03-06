@@ -8,10 +8,12 @@ ingress:
 useCertManager: true
 # cert-manager namespace
 certManagerNamespace: cert-manager
-# The name of the predefined TLS issuer to use (s3gw-issuer, s3gw-letsencrypt-issuer).
+# The name of the predefined TLS issuer to use (s3gw-issuer,
+# s3gw-letsencrypt-issuer).
 tlsIssuer: "s3gw-issuer"
 # The email address you are planning to use for getting notifications
-# about your certificates. Fill this if you are using the 's3gw-letsencrypt-issuer'.
+# about your certificates. Fill this if you are using the
+# 's3gw-letsencrypt-issuer'.
 email: "mail@example.com"
 
 # When not using cert-manager you have to manually specify
@@ -45,7 +47,7 @@ ui:
   # 'serviceName' is the service name of the S3GW user interface.
   serviceName: "s3gw-ui"
   # 'publicDomain' is the public domain of the UI Service used by the Ingress.
-  publicDomain: "fe.127.0.0.1.omg.howdoi.website"
+  publicDomain: "example.com"
 
   # --- Developer Options ---
   # imageName: "aquarist-labs/s3gw-ui"
@@ -61,15 +63,20 @@ useExistingSecret: false
 # 'defaultUserCredentialsSecret' the name of the secret containing
 # the S3 Access Key and the S3 Secret Key for the default user.
 defaultUserCredentialsSecret: "s3gw-creds"
-# 'accessKey' is the S3 Access Key; the value is used when useExistingSecret: false.
-# Set this as the empty string to make the Chart to compute a random alphanumeric value.
+# 'accessKey' is the S3 Access Key; the value is used when
+# useExistingSecret: false.
+# Set this as the empty string to make the Chart to compute a random
+# alphanumeric value.
 accessKey: "test"
-# 'secretKey' is the S3 Secret Key; the value is used when useExistingSecret: false
-# Set this as the empty string to make the Chart to compute a random alphanumeric value.
+# 'secretKey' is the S3 Secret Key; the value is used when
+# useExistingSecret: false
+# Set this as the empty string to make the Chart to compute a random
+# alphanumeric value.
 secretKey: "test"
 # 'publicDomain' is the public domain of S3GW used by the Ingress
-publicDomain: "be.127.0.0.1.omg.howdoi.website"
-# 'privateDomain' is the private domain of S3GW used inside the Kubernetes cluster
+publicDomain: "example.com"
+# 'privateDomain' is the private domain of S3GW used inside the Kubernetes
+# cluster
 privateDomain: "svc.cluster.local"
 
 # Backing storage.

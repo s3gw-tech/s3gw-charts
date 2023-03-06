@@ -20,7 +20,7 @@ questions:
 
   - variable: publicDomain
     show_if: ingress.enabled=true
-    default: be.127.0.0.1.omg.howdoi.website
+    default: example.com
     description: "Public domain of the S3 Service used by the Ingress"
     label: "Public Domain"
     required: true
@@ -56,7 +56,7 @@ questions:
 
   - variable: ui.publicDomain
     show_if: ingress.enabled=true
-    default: fe.127.0.0.1.omg.howdoi.website
+    default: example.com
     description: "Public domain of the UI Service used by the Ingress"
     label: "UI Public Domain"
     required: true
