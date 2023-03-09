@@ -5,6 +5,33 @@ entries:
       app.aquarist-labs.io/name: s3gw
     apiVersion: v2
     appVersion: latest
+    created: "2023-03-09T15:36:05.424086118Z"
+    description: 'Easy-to-use Open Source and Cloud Native S3 service for use on Rancher''s
+      Kubernetes. '
+    digest: c471d0c395d401648857d8bf88607c2ad5ccbd759fd69d9ecce3fb536589c0d2
+    home: https://github.com/aquarist-labs/s3gw
+    icon: https://raw.githubusercontent.com/aquarist-labs/aquarium-website/gh-pages/images/logo-xl.png
+    keywords:
+    - storage
+    - s3
+    kubeVersion: '>=1.14'
+    maintainers:
+    - email: s3gw@suse.com
+      name: s3gw maintainers
+      url: https://github.com/orgs/aquarist-labs/projects/5
+    name: s3gw
+    sources:
+    - https://github.com/aquarist-labs/s3gw-charts
+    - https://github.com/aquarist-labs/s3gw
+    - https://github.com/aquarist-labs/ceph
+    type: application
+    urls:
+    - https://github.com/aquarist-labs/s3gw-charts/releases/download/s3gw-0.13.0/s3gw-0.13.0.tgz
+    version: 0.13.0
+  - annotations:
+      app.aquarist-labs.io/name: s3gw
+    apiVersion: v2
+    appVersion: latest
     created: "2023-02-16T17:30:51.690830242Z"
     description: 'Easy-to-use Open Source and Cloud Native S3 service for use on Rancher''s
       Kubernetes. '
@@ -244,4 +271,4 @@ entries:
     urls:
     - https://github.com/aquarist-labs/s3gw-charts/releases/download/s3gw-0.5.1/s3gw-0.5.1.tgz
     version: 0.5.1
-generated: "2023-02-16T17:30:51.690869443Z"
+generated: "2023-03-09T15:36:05.424224318Z"
