@@ -39,9 +39,13 @@ spec:
             - "--debug-rgw"
             - '{{ .Values.logLevel }}'
             - "--rgw_frontends"
+{{- if or .Values.useCertManager .Values.tls.publicDomain.crt }}
             - "beast port=7480 ssl_port=7481
                 ssl_certificate=/s3gw-cluster-ip-tls/tls.crt
                 ssl_private_key=/s3gw-cluster-ip-tls/tls.key"
+{{ else }}
+            - "beast port=7480"
+{{ end }}
 {{- range $.Values.rgwCustomArgs }}
             - {{ . | quote}}
 {{- end }}
@@ -60,8 +64,10 @@ spec:
           ports:
             - containerPort: 7480
               name: s3
+{{- if or .Values.useCertManager .Values.tls.publicDomain.crt }}
             - containerPort: 7481
               name: s3-tls
+{{ end }}
           envFrom:
             - secretRef:
                 name: {{ .Values.defaultUserCredentialsSecret }}
