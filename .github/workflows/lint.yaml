@@ -77,7 +77,10 @@ jobs:
 
       - name: Try templating default settings
         run: |
-          helm template s3gw charts/s3gw > default.yaml
+          helm template s3gw charts/s3gw \
+            --set publicDomain="example.com" \
+            --set ui.publicDomain="example.com" \
+            > default.yaml
           kubectl apply -f default.yaml --dry-run=server
 
       - name: Try templating private registry
