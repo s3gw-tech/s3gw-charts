@@ -47,7 +47,7 @@ ui:
   # 'serviceName' is the service name of the S3GW user interface.
   serviceName: "s3gw-ui"
   # 'publicDomain' is the public domain of the UI Service used by the Ingress.
-  publicDomain: "example.com"
+  publicDomain: ""
 
   # --- Developer Options ---
   # imageName: "aquarist-labs/s3gw-ui"
@@ -74,7 +74,7 @@ accessKey: "test"
 # alphanumeric value.
 secretKey: "test"
 # 'publicDomain' is the public domain of S3GW used by the Ingress
-publicDomain: "example.com"
+publicDomain: ""
 # 'privateDomain' is the private domain of S3GW used inside the Kubernetes
 # cluster
 privateDomain: "svc.cluster.local"

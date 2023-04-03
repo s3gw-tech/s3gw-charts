@@ -1,8 +1,11 @@
 ---
+publicDomain: s3.example.com
 imageRegistry: example.com:5000
 imageName: prefix/s3gw
 imageTag: v0.6.1-private
 ui:
+  enabled: true
+  publicDomain: s3.example.com
   imageName: prefix/s3gw
   imageTag: v0.6.1-private
 imagePullPolicy: Always
