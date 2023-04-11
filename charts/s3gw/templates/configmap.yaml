@@ -14,4 +14,3 @@ data:
   RGW_SERVICE_URL: 'http://{{ .Values.serviceName }}.{{ .Values.publicDomain }}'
 {{- end }}
 {{- end }}
-  RGW_DEFAULT_USER_SYSTEM: "1"
