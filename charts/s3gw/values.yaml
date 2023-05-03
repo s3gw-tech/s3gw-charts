@@ -45,7 +45,7 @@ ui:
   # 'enabled' will deploy the S3GW user interface if set to `true`.
   enabled: true
   # 'serviceName' is the service name of the S3GW user interface.
-  serviceName: "s3gw-ui"
+  serviceName: ""
   # 'publicDomain' is the public domain of the UI Service used by the Ingress.
   publicDomain: ""
 
@@ -56,13 +56,13 @@ ui:
 # S3 Service
 #
 # 'serviceName' is the service name of S3GW.
-serviceName: "s3gw"
+serviceName: ""
 # 'useExistingSecret' use an existing secret containing the S3 credentials
 # for the default user
 useExistingSecret: false
 # 'defaultUserCredentialsSecret' the name of the secret containing
 # the S3 Access Key and the S3 Secret Key for the default user.
-defaultUserCredentialsSecret: "s3gw-creds"
+defaultUserCredentialsSecret: ""
 # 'accessKey' is the S3 Access Key; the value is used when
 # `useExistingSecret: false`.
 # Set this as the empty string to make the Chart to compute a random
@@ -84,7 +84,7 @@ privateDomain: "svc.cluster.local"
 # will be created. This assumes the Longhorn storage driver is installed.
 storageSize: 10Gi
 storageClass:
-  name: "longhorn-single"
+  name:
   create: true
 # For testing only:
 #  local: false

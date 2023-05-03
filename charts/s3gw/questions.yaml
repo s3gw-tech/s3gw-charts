@@ -73,7 +73,7 @@ questions:
 
   - variable: defaultUserCredentialsSecret
     show_if: useExistingSecret=true
-    default: s3gw-creds
+    default: ""
     description: |
       "The name of the secret containing the
       S3 credentials for the default user"
