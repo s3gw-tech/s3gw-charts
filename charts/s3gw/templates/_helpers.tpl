@@ -110,3 +110,57 @@ Default Access Credentials
 {{- $key := default (randAlphaNum 32) .Values.secretKey }}
 {{- printf "%s" $key }}
 {{- end }}
+
+{{/*
+Default storage class name
+*/}}
+{{- define "s3gw.storageClassName" -}}
+{{- $dscn := printf "%s-%s-longhorn-single" .Release.Name .Release.Namespace }}
+{{- $name := default $dscn .Values.storageClass.name }}
+{{- $name }}
+{{- end }}
+
+{{/*
+Default backend service name
+*/}}
+{{- define "s3gw.serviceName" -}}
+{{- $dsn := printf "%s-%s" .Release.Name .Release.Namespace }}
+{{- $name := default $dsn .Values.serviceName }}
+{{- $name }}
+{{- end }}
+
+{{/*
+Default frontend service name
+*/}}
+{{- define "s3gw.uiServiceName" -}}
+{{- $dsn := printf "%s-%s-ui" .Release.Name .Release.Namespace }}
+{{- $name := default $dsn .Values.ui.serviceName }}
+{{- $name }}
+{{- end }}
+
+{{/*
+Default user credentials secret for S3 backend service
+*/}}
+{{- define "s3gw.defaultUserCredentialsSecret" -}}
+{{- $dsn := printf "%s-%s-creds" .Release.Name .Release.Namespace }}
+{{- $name := default $dsn .Values.defaultUserCredentialsSecret }}
+{{- $name }}
+{{- end }}
+
+{{/*
+Default config map name
+*/}}
+{{- define "s3gw.configMap" -}}
+{{- $dcmn := printf "%s-%s-config" .Release.Name .Release.Namespace }}
+{{- $name := $dcmn }}
+{{- $name }}
+{{- end }}
+
+{{/*
+Default Middleware CORS name
+*/}}
+{{- define "s3gw.CORSMiddlewareName" -}}
+{{- $dmcn := printf "%s-%s-cors-header" .Release.Name .Release.Namespace }}
+{{- $name := $dmcn }}
+{{- $name }}
+{{- end }}

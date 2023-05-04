@@ -7,7 +7,7 @@ metadata:
   labels:
 {{ include "s3gw.labels" . | indent 4 }}
 spec:
-  storageClassName: {{ .Values.storageClass.name }}
+  storageClassName: {{ include "s3gw.storageClassName" . }}
   accessModes:
     - ReadWriteOnce
   resources:
@@ -18,8 +18,7 @@ spec:
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: {{ .Values.storageClass.name }}
-  namespace: {{ .Release.Namespace }}
+  name: {{ include "s3gw.storageClassName" . }}
   labels:
 {{ include "s3gw.labels" . | indent 4 }}
 volumeBindingMode: Immediate
@@ -45,7 +44,7 @@ metadata:
 {{ include "s3gw.labels" . | indent 4 }}
     type: local
 spec:
-  storageClassName: {{ .Values.storageClass.name }}
+  storageClassName: {{ include "s3gw.storageClassName" . }}
   capacity:
     storage: {{ .Values.storageSize }}
   accessModes:
