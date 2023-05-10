@@ -82,10 +82,15 @@ privateDomain: "svc.cluster.local"
 # Backing storage.
 # Name the storage class to use. If create is true, an opinionated storage class
 # will be created. This assumes the Longhorn storage driver is installed.
+#
+# By specifying storageClass.name = "" and storageClass.create = false the chart
+# uses the cluster's default storage class.
+# This is the chart's default behavior.
+#
 storageSize: 10Gi
 storageClass:
   name:
-  create: true
+  create: false
 # For testing only:
 #  local: false
 #  localPath: /var/lib/local-storage

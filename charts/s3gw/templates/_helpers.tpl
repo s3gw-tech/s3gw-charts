@@ -112,15 +112,6 @@ Default Access Credentials
 {{- end }}
 
 {{/*
-Default storage class name
-*/}}
-{{- define "s3gw.storageClassName" -}}
-{{- $dscn := printf "%s-%s-longhorn-single" .Release.Name .Release.Namespace }}
-{{- $name := default $dscn .Values.storageClass.name }}
-{{- $name }}
-{{- end }}
-
-{{/*
 Default backend service name
 */}}
 {{- define "s3gw.serviceName" -}}
