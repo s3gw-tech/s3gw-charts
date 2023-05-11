@@ -57,6 +57,11 @@ app.kubernetes.io/component: gateway
 app.kubernetes.io/component: ui
 {{- end }}
 
+{{- define "s3gw-cosi.selectorLabels" -}}
+{{ include "s3gw.commonSelectorLabels" . }}
+app.kubernetes.io/component: cosi
+{{- end }}
+
 {{/*
 Create the name of the service account to use
 */}}
@@ -112,7 +117,7 @@ Default Access Credentials
 {{- end }}
 
 {{/*
-Default backend service name
+Backend service name
 */}}
 {{- define "s3gw.serviceName" -}}
 {{- $dsn := printf "%s-%s" .Release.Name .Release.Namespace }}
@@ -121,7 +126,7 @@ Default backend service name
 {{- end }}
 
 {{/*
-Default frontend service name
+Frontend service name
 */}}
 {{- define "s3gw.uiServiceName" -}}
 {{- $dsn := printf "%s-%s-ui" .Release.Name .Release.Namespace }}
@@ -130,7 +135,7 @@ Default frontend service name
 {{- end }}
 
 {{/*
-Default user credentials secret for S3 backend service
+User credentials secret for S3 backend service
 */}}
 {{- define "s3gw.defaultUserCredentialsSecret" -}}
 {{- $dsn := printf "%s-%s-creds" .Release.Name .Release.Namespace }}
@@ -139,7 +144,7 @@ Default user credentials secret for S3 backend service
 {{- end }}
 
 {{/*
-Default config map name
+Config map name
 */}}
 {{- define "s3gw.configMap" -}}
 {{- $dcmn := printf "%s-%s-config" .Release.Name .Release.Namespace }}
@@ -148,10 +153,79 @@ Default config map name
 {{- end }}
 
 {{/*
-Default Middleware CORS name
+Traefik Middleware CORS name
 */}}
 {{- define "s3gw.CORSMiddlewareName" -}}
 {{- $dmcn := printf "%s-%s-cors-header" .Release.Name .Release.Namespace }}
 {{- $name := $dmcn }}
+{{- $name }}
+{{- end }}
+
+{{/*
+Version helpers for the cosi-driver image tag
+*/}}
+{{- define "s3gw-cosi.driverImage" -}}
+{{- $defaulttag := printf "v%s" .Chart.Version }}
+{{- $tag := default $defaulttag .Values.cosi.driver.imageTag }}
+{{- $name := default "s3gw-cosi-driver" .Values.cosi.driver.imageName }}
+{{- $registry := default "quay.io/s3gw" .Values.cosi.driver.imageRegistry }}
+{{- printf "%s/%s:%s" $registry $name $tag }}
+{{- end }}
+
+{{/*
+Version helpers for the cosi-sidecar image tag
+*/}}
+{{- define "s3gw-cosi.sidecarImage" -}}
+{{- $defaulttag := printf "v%s" .Chart.Version }}
+{{- $tag := default $defaulttag .Values.cosi.sidecar.imageTag }}
+{{- $name := default "s3gw-cosi-sidecar" .Values.cosi.sidecar.imageName }}
+{{- $registry := default "quay.io/s3gw" .Values.cosi.sidecar.imageRegistry }}
+{{- printf "%s/%s:%s" $registry $name $tag }}
+{{- end }}
+
+{{/*
+COSI driver name
+*/}}
+{{- define "s3gw-cosi.driverName" -}}
+{{- $sn := .Release.Name }}
+{{- $ns := .Release.Namespace }}
+{{- $defaultname := printf "%s.%s.objectstorage.k8s.io" $sn $ns }}
+{{- $name := default $defaultname .Values.cosi.driver.name }}
+{{- printf "%s" $name }}
+{{- end }}
+
+{{/*
+COSI service account name
+*/}}
+{{- define "s3gw-cosi.ServiceAccountName" -}}
+{{- $dcsan := printf "%s-%s-objectstorage-provisioner-sa" .Release.Name .Release.Namespace }}
+{{- $name := $dcsan }}
+{{- $name }}
+{{- end }}
+
+{{/*
+COSI driver secret name
+*/}}
+{{- define "s3gw-cosi.driverSecretName" -}}
+{{- $ddsn := printf "%s-%s-objectstorage-provisioner" .Release.Name .Release.Namespace }}
+{{- $name := $ddsn }}
+{{- $name }}
+{{- end }}
+
+{{/*
+COSI cluster role name
+*/}}
+{{- define "s3gw-cosi.ClusterRoleName" -}}
+{{- $dcrn := printf "%s-%s-objectstorage-provisioner-role" .Release.Name .Release.Namespace }}
+{{- $name := $dcrn }}
+{{- $name }}
+{{- end }}
+
+{{/*
+COSI cluster role binding name
+*/}}
+{{- define "s3gw-cosi.ClusterRoleBindingName" -}}
+{{- $dcrn := printf "%s-%s-objectstorage-provisioner-role-binding" .Release.Name .Release.Namespace }}
+{{- $name := $dcrn }}
 {{- $name }}
 {{- end }}

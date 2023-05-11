@@ -14,3 +14,9 @@ An access key has been generated: {{ include "s3gw.defaultAccessKey" . | quote }
 {{- if and (not .Values.useExistingSecret) (empty .Values.secretKey) }}
 A secret key has been generated: {{ include "s3gw.defaultSecretKey" . | quote }}
 {{ end }}
+
+{{- if .Values.cosi.enabled }}
+Name of the COSI driver:
+
+{{ printf "%s" (include "s3gw-cosi.driverName" .) | indent 4 }}
+{{ end }}
