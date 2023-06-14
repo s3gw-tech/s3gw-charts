@@ -1,0 +1,58 @@
+---
+suite: Deployment
+templates:
+  - deployment.yaml
+tests:
+
+  - it: Always deploys s3gw by default
+    release:
+      name: s3gw-release
+      namespace: s3gw-namespace
+    assert:
+      - containsDocument:
+          kind: Deployment
+          apiVersion: apps/v1
+          name: s3gw-release
+          namespace: s3gw-namespace
+
+  - it: Deploys s3gw and s3gw UI
+    set:
+      ui.enabled: true
+    release:
+      name: s3gw-release-ui
+      namespace: s3gw-namespace
+    assert:
+
+      - hasDocuments:
+          count: 2
+
+      - containsDocument:
+          kind: Deployment
+          apiVersion: apps/v1
+          name: s3gw-release
+          namespace: s3gw-namespace
+        documentIndex: 0
+
+      - containsDocument:
+          kind: Deployment
+          apiVersion: apps/v1
+          name: s3gw-release-ui
+          namespace: s3gw-namespace
+        documentIndex: 1
+
+  - it: Deploys s3gw only
+    set:
+      ui.enabled: false
+    release:
+      name: s3gw-release-ui
+      namespace: s3gw-namespace
+    assert:
+
+      - hasDocuments:
+          count: 1
+
+      - containsDocument:
+          kind: Deployment
+          apiVersion: apps/v1
+          name: s3gw-release
+          namespace: s3gw-namespace

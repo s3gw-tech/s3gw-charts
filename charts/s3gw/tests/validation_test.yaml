@@ -1,0 +1,20 @@
+---
+suite: Validation
+templates:
+  - chart-validation.yaml
+tests:
+
+  - it: Fail templating if ingress is enabled without publicDomain
+    set:
+      ingress.enabled: true
+      publicDomain: null
+    assert:
+      - failedTemplate:
+          errorMessage: "Please provide a value for `.Values.publicDomain`."
+
+  - it: Don't fail if without publicDomain if ingress is disabled
+    set:
+      ingress.enabled: false
+      publicDomain: null
+    assert:
+      - notFailedTemplate: {}
