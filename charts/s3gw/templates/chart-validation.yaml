@@ -9,3 +9,11 @@
 {{- if (and .Values.useExistingSecret (empty .Values.defaultUserCredentialsSecret)) }}
 {{- fail "Please provide a secret name for `.Values.defaultUserCredentialSecret`" }}
 {{- end }}
+
+{{- if .Values.useCertManager }}
+{{- if eq .Values.tlsIssuer "s3gw-letsencrypt-issuer" }}
+{{- if eq .Values.email "mail@example.com" }}
+{{- fail "Please provide a valid email for letsencrypt" }}
+{{- end }}
+{{- end }}
+{{- end }}
