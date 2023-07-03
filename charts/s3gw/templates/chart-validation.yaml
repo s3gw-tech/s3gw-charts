@@ -1,4 +1,4 @@
-{{- if (empty .Values.publicDomain) }}
+{{- if (and .Values.ingress.enabled (empty .Values.publicDomain)) }}
 {{- fail "Please provide a value for `.Values.publicDomain`." }}
 {{- end }}
 
