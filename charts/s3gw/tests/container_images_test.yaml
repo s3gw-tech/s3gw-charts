@@ -1,0 +1,45 @@
+---
+suite: Container Images
+templates:
+  - deployment.yaml
+tests:
+
+  - it: Setting Image Name
+    chart:
+      version: 0.17.0
+    set:
+      imageName: my-organization/my-s3gw
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: quay.io/my-organization/my-s3gw:v0.17.0
+        documentIndex: 0
+
+  - it: Setting UI Image Name
+    chart:
+      version: 0.17.0
+    set:
+      ui.imageName: my-organization/my-s3gw-ui
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: quay.io/my-organization/my-s3gw-ui:v0.17.0
+        documentIndex: 1
+
+  - it: Setting Image Tag
+    set:
+      imageTag: v1.2.3
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: quay.io/s3gw/s3gw:v1.2.3
+        documentIndex: 0
+
+  - it: Setting UI Image Tag
+    set:
+      ui.imageTag: v1.2.3
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: quay.io/s3gw/s3gw-ui:v1.2.3
+        documentIndex: 1
