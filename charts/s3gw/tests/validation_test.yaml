@@ -1,4 +1,7 @@
 ---
+# This set of unit tests exercises the chart validation template. That is a
+# template designed to deliberately fail the manifest generation when
+# nonsensical configuration values are provided.
 suite: Validation
 templates:
   - chart-validation.yaml
@@ -12,9 +15,93 @@ tests:
       - failedTemplate:
           errorMessage: "Please provide a value for `.Values.publicDomain`."
 
+  - it: Don't fail if publicDomain is provided
+    set:
+      ingress.enabled: true
+      publicDomain: "example.com"
+    assert:
+      - notFailedTemplate: {}
+
   - it: Don't fail if without publicDomain if ingress is disabled
     set:
       ingress.enabled: false
       publicDomain: null
+    assert:
+      - notFailedTemplate: {}
+
+  # - - -
+  - it: Fail templating if UI is enabled without a ui.publicDomain
+    set:
+      ui.enabled: true
+      ui.publicDomain: null
+    assert:
+      - failedTemplate:
+          errorMessage: "Please provide a value for `.Values.ui.publicDomain`."
+
+  - it: Don't fail if ui.publicDomain is provided
+    set:
+      ui.enabled: true
+      ui.publicDomain: "example.com"
+    assert:
+      - notFailedTemplate: {}
+
+  - it: Don't fail if UI is disabled and doesn't have a ui.publicDomain
+    set:
+      ui.enabled: false
+      ui.publicDomain: null
+    assert:
+      - notFailedTemplate: {}
+
+  # - - -
+  - it: Fail templating when using existing secret by no secret is given
+    set:
+      useExistingSecret: true
+      defaultUserCredentialSecert: null
+    assert:
+      - failedTemplate:
+          errorMessage: "Please provide a secret name for `.Values.defaultUserCredentialSecret`"
+
+  - it: Don't fail when not using an existing secret
+    set:
+      useExistingSecret: false
+      defaultUserCredentialSecert: null
+    assert:
+      - notFailedTemplate: {}
+
+  - it: Don't fail when a secret name is given
+    set:
+      useExistingSecret: true
+      defaultUserCredentialSecert: "my-super-secret"
+    assert:
+      - notFailedTemplate: {}
+
+  # - - -
+  - it: Fail templating with default email and letsencrypt issuer
+    set:
+      useCertManager: true
+      tlsIssuer: "s3gw-letsencrypt-issuer"
+    assert:
+      - failedTemplate:
+          errorMessage: "Please provide a valid email for letsencrypt"
+
+  - it: Don't fail with default email and other certificate issuer
+    set:
+      useCertManager: true
+      tlsIssuer: "s3gw-issuer"
+    assert:
+      - notFailedTemplate: {}
+
+  - it: Don't fail with valid email and letsencrypt issuer
+    set:
+      useCertManager: true
+      tlsIssuer: "s3gw-letsencrypt-issuer"
+      email: "someone@emailprovider.com"
+    assert:
+      - notFailedTemplate: {}
+
+  - it: Don't fail with default email when not using cert-manager
+    set:
+      useCertManager: false
+      tlsIssuer: "s3gw-letsencrypt-issuer"
     assert:
       - notFailedTemplate: {}
