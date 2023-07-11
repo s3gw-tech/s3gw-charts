@@ -1,8 +1,13 @@
 ---
 #
 suite: COSI
+release:
+  name: s3gw-name
+  namespace: s3gw-namespace
 templates:
   - cosi-driver-secret.yaml
+  - cosi-rbac.yaml
+  - cosi-sa.yaml
 tests:
 
   - it: Don't generate manifest when COSI is disabled
@@ -12,8 +17,7 @@ tests:
 
       - hasDocuments:
           count: 0
-        templates:
-          - cosi-driver-secret.yaml
+        template: cosi-driver-secret.yaml
 
   - it: Generate COSI secret when COSI is enabled
     set:
@@ -22,14 +26,14 @@ tests:
 
       - hasDocuments:
           count: 1
-        templates:
-          - cosi-driver-secret.yaml
+        template: cosi-driver-secret.yaml
 
       - containsDocument:
           kind: Secret
           apiVersion: v1
-        templates:
-          - cosi-driver-secret.yaml
+          name: s3gw-name-s3gw-namespace-objectstorage-provisioner
+          namespace: s3gw-namespace
+        template: cosi-driver-secret.yaml
 
   - it: COSI secret contains expected values when keys are given
     set:
@@ -41,14 +45,12 @@ tests:
       - equal:
           path: stringData.ACCESSKEY
           value: foo
-        templates:
-          - cosi-driver-secret.yaml
+        template: cosi-driver-secret.yaml
 
       - equal:
           path: stringData.SECRETKEY
           value: bar
-        templates:
-          - cosi-driver-secret.yaml
+        template: cosi-driver-secret.yaml
 
   - it: COSI secret contains expected values when keys are generated
     set:
@@ -60,11 +62,89 @@ tests:
       - matchRegex:
           path: stringData.ACCESSKEY
           pattern: ^[a-zA-Z0-9]+$
-        templates:
-          - cosi-driver-secret.yaml
+        template: cosi-driver-secret.yaml
 
       - matchRegex:
           path: stringData.SECRETKEY
           pattern: ^[a-zA-Z0-9]+$
-        templates:
-          - cosi-driver-secret.yaml
+        template: cosi-driver-secret.yaml
+
+  - it: COSI RBAC resources is not generated with COSI disabled
+    set:
+      cosi.enabled: false
+    asserts:
+
+      - hasDocuments:
+          count: 0
+        template: cosi-rbac.yaml
+
+      - hasDocuments:
+          count: 0
+        template: cosi-sa.yaml
+
+  - it: COSI RBAC resources are generated with COSI enabled
+    set:
+      cosi.enabled: true
+    asserts:
+
+      - hasDocuments:
+          count: 2
+        template: cosi-rbac.yaml
+
+      - containsDocument:
+          kind: ClusterRole
+          apiVersion: rbac.authorization.k8s.io/v1
+          name: s3gw-name-s3gw-namespace-objectstorage-provisioner-role
+        template: cosi-rbac.yaml
+
+      - isKind:
+          of: ClusterRole
+        documentIndex: 0
+        template: cosi-rbac.yaml
+
+      - containsDocument:
+          kind: ClusterRoleBinding
+          apiVersion: rbac.authorization.k8s.io/v1
+          name: s3gw-name-s3gw-namespace-objectstorage-provisioner-role-binding
+        template: cosi-rbac.yaml
+
+      - isKind:
+          of: ClusterRoleBinding
+        documentIndex: 1
+        template: cosi-rbac.yaml
+
+      - hasDocuments:
+          count: 1
+        template: cosi-sa.yaml
+
+      - containsDocument:
+          kind: ServiceAccount
+          apiVersion: v1
+          name: s3gw-name-s3gw-namespace-objectstorage-provisioner-sa
+          namespace: s3gw-namespace
+        template: cosi-sa.yaml
+
+  - it: COSI cluster role binding binds the ServiceAccount and ClusterRole
+    set:
+      cosi.enabled: true
+    asserts:
+
+      - contains:
+          path: subjects
+          content:
+            kind: ServiceAccount
+            name: s3gw-name-s3gw-namespace-objectstorage-provisioner-sa
+            namespace: s3gw-namespace
+          any: true
+        documentIndex: 1
+        template: cosi-rbac.yaml
+
+      - isSubset:
+          path: roleRef
+          content:
+            kind: ClusterRole
+            apiGroup: rbac.authorization.k8s.io
+            name: s3gw-name-s3gw-namespace-objectstorage-provisioner-role
+          any: true
+        documentIndex: 1
+        template: cosi-rbac.yaml
