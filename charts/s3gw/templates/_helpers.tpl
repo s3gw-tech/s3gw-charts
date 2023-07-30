@@ -87,7 +87,7 @@ Version helpers for the image tag
 {{- define "s3gw-ui.image" -}}
 {{- $tag := default (printf "v%s" .Chart.Version) .Values.ui.imageTag }}
 {{- $name := default "s3gw/s3gw-ui" .Values.ui.imageName }}
-{{- $registry := default "quay.io" .Values.imageRegistry }}
+{{- $registry := default "quay.io" .Values.ui.imageRegistry }}
 {{- printf "%s/%s:%s" $registry $name $tag }}
 {{- end }}
 
