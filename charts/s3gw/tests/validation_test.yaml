@@ -5,13 +5,19 @@
 suite: Validation
 templates:
   - chart-validation.yaml
+release:
+  name: s3gw
+  namespace: s3gw-system
 tests:
 
   - it: Fail templating if ingress is enabled without publicDomain
     set:
       ingress.enabled: true
       publicDomain: null
-    assert:
+      ui.enabled: false
+      useExistingSecret: false
+      useCertManager: false
+    asserts:
       - failedTemplate:
           errorMessage: "Please provide a value for `.Values.publicDomain`."
 
@@ -19,22 +25,37 @@ tests:
     set:
       ingress.enabled: true
       publicDomain: "example.com"
-    assert:
-      - notFailedTemplate: {}
+      ui.enabled: false
+      useExistingSecret: false
+      useCertManager: false
+    asserts:
+      # An empty document counts as having failed templating. But in case of
+      # chart-validation.yaml we expect the document to be empty if none of the
+      # checks fail.
+      - hasDocuments:
+          count: 0
 
   - it: Don't fail if without publicDomain if ingress is disabled
     set:
       ingress.enabled: false
       publicDomain: null
-    assert:
-      - notFailedTemplate: {}
+      useExistingSecret: false
+      useCertManager: false
+    asserts:
+
+      - hasDocuments:
+          count: 0
 
   # - - -
   - it: Fail templating if UI is enabled without a ui.publicDomain
     set:
       ui.enabled: true
       ui.publicDomain: null
-    assert:
+      publicDomain: example.com
+      useExistingSecret: false
+      useCertManager: false
+    asserts:
+
       - failedTemplate:
           errorMessage: "Please provide a value for `.Values.ui.publicDomain`."
 
@@ -42,45 +63,71 @@ tests:
     set:
       ui.enabled: true
       ui.publicDomain: "example.com"
-    assert:
-      - notFailedTemplate: {}
+      publicDomain: "example.com"
+      useExistingSecret: false
+      useCertManager: false
+    asserts:
+
+      - hasDocuments:
+          count: 0
 
   - it: Don't fail if UI is disabled and doesn't have a ui.publicDomain
     set:
       ui.enabled: false
       ui.publicDomain: null
-    assert:
-      - notFailedTemplate: {}
+      publicDomain: example.com
+      useExistingSecret: false
+      useCertManager: false
+    asserts:
+
+      - hasDocuments:
+          count: 0
 
   # - - -
   - it: Fail templating when using existing secret by no secret is given
     set:
       useExistingSecret: true
-      defaultUserCredentialSecert: null
-    assert:
+      defaultUserCredentialsSecret: null
+      ingress.enabled: false
+      useCertManager: false
+    asserts:
+
       - failedTemplate:
-          errorMessage: "Please provide a secret name for `.Values.defaultUserCredentialSecret`"
+          errorMessage: "Please provide a secret name for `.Values.defaultUserCredentialsSecret`"
 
   - it: Don't fail when not using an existing secret
     set:
       useExistingSecret: false
-      defaultUserCredentialSecert: null
-    assert:
-      - notFailedTemplate: {}
+      defaultUserCredentialsSecret: null
+      ingress.enabled: false
+      useCertManager: false
+    asserts:
+
+      - hasDocuments:
+          count: 0
 
   - it: Don't fail when a secret name is given
     set:
       useExistingSecret: true
-      defaultUserCredentialSecert: "my-super-secret"
-    assert:
-      - notFailedTemplate: {}
+      defaultUserCredentialsSecret: "my-super-secret"
+      ingress.enabled: false
+      useCertManager: false
+    asserts:
+
+      - hasDocuments:
+          count: 0
 
   # - - -
   - it: Fail templating with default email and letsencrypt issuer
     set:
       useCertManager: true
       tlsIssuer: "s3gw-letsencrypt-issuer"
-    assert:
+      ingress.enabled: true
+      publicDomain: "example.com"
+      ui.enabled: false
+      useExistingSecret: false
+    asserts:
+
       - failedTemplate:
           errorMessage: "Please provide a valid email for letsencrypt"
 
@@ -88,20 +135,38 @@ tests:
     set:
       useCertManager: true
       tlsIssuer: "s3gw-issuer"
-    assert:
-      - notFailedTemplate: {}
+      ingress.enabled: true
+      publicDomain: "example.com"
+      ui.enabled: false
+      useExistingSecret: false
+    asserts:
+
+      - hasDocuments:
+          count: 0
 
   - it: Don't fail with valid email and letsencrypt issuer
     set:
       useCertManager: true
       tlsIssuer: "s3gw-letsencrypt-issuer"
       email: "someone@emailprovider.com"
-    assert:
-      - notFailedTemplate: {}
+      ingress.enabled: true
+      publicDomain: "example.com"
+      ui.enabled: false
+      useExistingSecret: false
+    asserts:
+
+      - hasDocuments:
+          count: 0
 
   - it: Don't fail with default email when not using cert-manager
     set:
       useCertManager: false
       tlsIssuer: "s3gw-letsencrypt-issuer"
-    assert:
-      - notFailedTemplate: {}
+      ingress.enabled: true
+      publicDomain: "example.com"
+      ui.enabled: false
+      useExistingSecret: false
+    asserts:
+
+      - hasDocuments:
+          count: 0
