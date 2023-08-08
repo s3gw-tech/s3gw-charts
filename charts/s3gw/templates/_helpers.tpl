@@ -239,3 +239,14 @@ COSI endpoint
 {{- $endpoint := default $defaultendpoint .Values.cosi.driver.endpoint }}
 {{- $endpoint }}
 {{- end }}
+
+
+{{- define "s3gw.tlsIssuerName" -}}
+{{- if eq .Values.tlsIssuer "s3gw-issuer" }}
+{{- printf "%s-%s-self-signed-issuer" .Release.Name .Release.Namespace }}
+{{- else if eq .Values.tlsIssuer "s3gw-letsencrypt-issuer" }}
+{{- printf "%s-%s-letsencrypt-issuer" .Release.Name .Release.Namespace }}
+{{- else }}
+{{- printf "%s-%s-%s-issuer" .Release.Name .Release.Namespace .Values.tlsIssuer }}
+{{- end }}
+{{- end }}

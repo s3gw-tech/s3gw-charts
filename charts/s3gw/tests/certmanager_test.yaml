@@ -1,0 +1,97 @@
+---
+suite: Certificate Manager
+templates:
+  - ingress-traefik.yaml
+  - tls-issuer.yaml
+  - certificate.yaml
+release:
+  name: s3gw-release
+  namespace: s3gw-system
+set:
+  ingress.enabled: true
+  useCertManager: true
+  certManagerNamespace: "cert-manager-system"
+tests:
+
+  - it: Certificates
+    asserts:
+
+      - hasDocuments:
+          count: 2
+        template: certificate.yaml
+
+      - containsDocument:
+          kind: Certificate
+          apiVersion: cert-manager.io/v1
+          name: s3gw-release-s3gw-system-ca-cert
+          namespace: cert-manager-system
+        documentIndex: 0
+        template: certificate.yaml
+
+      - containsDocument:
+          kind: Certificate
+          apiVersion: cert-manager.io/v1
+          name: s3gw-release-s3gw-system-cluster-ip-cert
+          namespace: s3gw-system
+        documentIndex: 1
+        template: certificate.yaml
+
+  - it: Self Signed Issuer
+    set:
+      tlsIssuer: "s3gw-issuer"
+    asserts:
+
+      - hasDocuments:
+          count: 2
+        template: tls-issuer.yaml
+
+      - containsDocument:
+          kind: ClusterIssuer
+          apiVersion: cert-manager.io/v1
+          name: s3gw-release-s3gw-system-private-issuer
+        documentIndex: 0
+        template: tls-issuer.yaml
+
+      - containsDocument:
+          kind: ClusterIssuer
+          apiVersion: cert-manager.io/v1
+          name: s3gw-release-s3gw-system-self-signed-issuer
+        documentIndex: 1
+        template: tls-issuer.yaml
+
+      - isSubset:
+          path: metadata.annotations
+          content:
+            cert-manager.io/cluster-issuer: s3gw-release-s3gw-system-self-signed-issuer
+        documentIndex: 0
+        template: ingress-traefik.yaml
+
+  - it: Letsencrypt Issuer
+    set:
+      tlsIssuer: "s3gw-letsencrypt-issuer"
+    asserts:
+
+      - hasDocuments:
+          count: 2
+        template: tls-issuer.yaml
+
+      - containsDocument:
+          kind: ClusterIssuer
+          apiVersion: cert-manager.io/v1
+          name: s3gw-release-s3gw-system-private-issuer
+        documentIndex: 0
+        template: tls-issuer.yaml
+
+      - containsDocument:
+          kind: ClusterIssuer
+          apiVersion: cert-manager.io/v1
+          name: s3gw-release-s3gw-system-letsencrypt-issuer
+        documentIndex: 1
+        template: tls-issuer.yaml
+
+      - isSubset:
+          path: metadata.annotations
+          content:
+            cert-manager.io/cluster-issuer: s3gw-release-s3gw-system-letsencrypt-issuer
+        documentIndex: 0
+        template: ingress-traefik.yaml

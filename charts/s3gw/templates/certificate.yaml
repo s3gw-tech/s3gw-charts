@@ -1,6 +1,8 @@
 {{- if .Values.useCertManager }}
 ---
 # s3gw-ca root certificate
+# This is the root certificate that will be used by the private ca issuer to
+# issue a certificate for the cluster-internal connection
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -13,13 +15,14 @@ spec:
   isCA: true
   issuerRef:
     kind: ClusterIssuer
-    name: {{ .Release.Name }}-{{ .Release.Namespace }}-self-signed-issuer
+    name: {{ .Release.Name }}-{{ .Release.Namespace }}-private-issuer
   privateKey:
     algorithm: ECDSA
     size: 256
   secretName: {{ .Release.Name }}-{{ .Release.Namespace }}-ca-root
 ---
 # s3gw internal service certificate (private domain)
+# This is the certificate that is requested for the cluster internal connection
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -33,6 +36,6 @@ spec:
     - '*.{{ include "s3gw.serviceName" . }}.{{ .Release.Namespace }}.{{ .Values.privateDomain }}'
   issuerRef:
     kind: ClusterIssuer
-    name: {{ .Release.Name }}-{{ .Release.Namespace }}-issuer
+    name: {{ .Release.Name }}-{{ .Release.Namespace }}-private-issuer
   secretName: {{ .Release.Name }}-{{ .Release.Namespace }}-cluster-ip-tls
 {{- end }}
