@@ -40,10 +40,6 @@ spec:
     solvers:
     - http01:
         ingress:
-          ingressTemplate:
-            metadata:
-              annotations:
-                traefik.ingress.kubernetes.io/router.entrypoints: websecure
-                traefik.ingress.kubernetes.io/router.tls: "true"
+          ingressClassName: traefik
 {{- end }}
 {{- end }}
