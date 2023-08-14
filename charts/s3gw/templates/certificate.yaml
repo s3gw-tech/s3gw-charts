@@ -33,6 +33,6 @@ spec:
     - '*.{{ include "s3gw.serviceName" . }}.{{ .Release.Namespace }}.{{ .Values.privateDomain }}'
   issuerRef:
     kind: ClusterIssuer
-    name: {{ .Release.Name }}-{{ .Release.Namespace }}-issuer
+    name: {{ .Release.Name }}-{{ .Release.Namespace }}-s3gw-issuer
   secretName: {{ .Release.Name }}-{{ .Release.Namespace }}-cluster-ip-tls
 {{- end }}
