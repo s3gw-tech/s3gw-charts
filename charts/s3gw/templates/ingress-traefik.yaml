@@ -17,7 +17,7 @@ spec:
   tls:
     - hosts:
         - '{{ include "s3gw.serviceName" . }}.{{ .Values.publicDomain }}'
-        - '*.{{ include "s3gw.serviceName" . }}.{{ .Values.publicDomain }}'
+#        - '*.{{ include "s3gw.serviceName" . }}.{{ .Values.publicDomain }}'
       secretName: s3gw-ingress-tls
   rules:
     - host: '{{ include "s3gw.serviceName" . }}.{{ .Values.publicDomain }}'
