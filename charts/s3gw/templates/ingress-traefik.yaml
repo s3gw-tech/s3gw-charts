@@ -12,12 +12,12 @@ metadata:
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/router.middlewares:
       '{{ .Release.Namespace }}-{{ include "s3gw.CORSMiddlewareName" . }}@kubernetescrd'
-    cert-manager.io/cluster-issuer: {{ default .Values.tlsIssuer .Values.customTlsIssuer | quote }}
+    cert-manager.io/cluster-issuer: {{ .Release.Name }}-{{ .Release.Namespace }}-{{ .Values.tlsIssuer }}
 spec:
   tls:
     - hosts:
         - '{{ include "s3gw.serviceName" . }}.{{ .Values.publicDomain }}'
-        - '*.{{ include "s3gw.serviceName" . }}.{{ .Values.publicDomain }}'
+#        - '*.{{ include "s3gw.serviceName" . }}.{{ .Values.publicDomain }}'
       secretName: s3gw-ingress-tls
   rules:
     - host: '{{ include "s3gw.serviceName" . }}.{{ .Values.publicDomain }}'
@@ -88,7 +88,7 @@ metadata:
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/router.middlewares:
       '{{ .Release.Namespace }}-{{ include "s3gw.CORSMiddlewareName" . }}@kubernetescrd'
-    cert-manager.io/cluster-issuer: {{ default .Values.tlsIssuer .Values.customTlsIssuer | quote }}
+    cert-manager.io/cluster-issuer: {{ .Release.Name }}-{{ .Release.Namespace }}-{{ .Values.tlsIssuer }}
 spec:
   tls:
     - hosts:
