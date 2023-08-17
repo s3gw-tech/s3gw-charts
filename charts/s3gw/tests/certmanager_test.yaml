@@ -43,7 +43,14 @@ tests:
     asserts:
 
       - hasDocuments:
-          count: 0
+          count: 1
+        template: tls-issuer.yaml
+
+      - containsDocument:
+          kind: ClusterIssuer
+          apiVersion: cert-manager.io/v1
+          name: s3gw-release-s3gw-system-private-issuer
+        documentIndex: 0
         template: tls-issuer.yaml
 
       - isSubset:

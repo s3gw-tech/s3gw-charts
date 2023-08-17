@@ -1,4 +1,4 @@
-{{- if and .Values.useCertManager (empty .Values.customTlsIssuer) }}
+{{- if .Values.useCertManager }}
 ---
 # Private s3gw-ca issuer
 # This issuer is needed in all cases to issue a certificate for the
@@ -12,6 +12,7 @@ metadata:
 spec:
   ca:
     secretName: {{ .Release.Name }}-{{ .Release.Namespace }}-ca-root
+{{- if empty .Values.customTlsIssuer }}
 ---
 # This issuer is either using self-signed certificates or requesting
 # certificates from Letsencrypt. This is used to issue certificates for the
@@ -42,5 +43,6 @@ spec:
               annotations:
                 traefik.ingress.kubernetes.io/router.entrypoints: websecure
                 traefik.ingress.kubernetes.io/router.tls: "true"
+{{- end }}
 {{- end }}
 {{- end }}
