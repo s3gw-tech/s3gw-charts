@@ -242,7 +242,9 @@ COSI endpoint
 
 
 {{- define "s3gw.tlsIssuerName" -}}
-{{- if eq .Values.tlsIssuer "s3gw-issuer" }}
+{{- if .Values.customTlsIssuer }}
+{{- printf "%s" .Values.customTlsIssuer }}
+{{- else if eq .Values.tlsIssuer "s3gw-issuer" }}
 {{- printf "%s-%s-self-signed-issuer" .Release.Name .Release.Namespace }}
 {{- else if eq .Values.tlsIssuer "s3gw-letsencrypt-issuer" }}
 {{- printf "%s-%s-letsencrypt-issuer" .Release.Name .Release.Namespace }}

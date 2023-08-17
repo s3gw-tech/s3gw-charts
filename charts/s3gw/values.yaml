@@ -11,6 +11,10 @@ certManagerNamespace: cert-manager
 # The name of the predefined TLS issuer to use (s3gw-issuer,
 # s3gw-letsencrypt-issuer).
 tlsIssuer: "s3gw-issuer"
+# The customTlsIssuer overrides any other TLS issuer. It is otherwise completely
+# independent from the provided config, but can be used for any configuration
+# not possible with the letsencrypt issuer or the self-signed issuer
+# customTlsIssuer: ""
 # The email address you are planning to use for getting notifications
 # about your certificates. Fill this if you are using the
 # 's3gw-letsencrypt-issuer'.

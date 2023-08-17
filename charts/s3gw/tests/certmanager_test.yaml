@@ -36,6 +36,23 @@ tests:
         documentIndex: 1
         template: certificate.yaml
 
+  - it: Custom TLS Issuer
+    set:
+      tlsIssuer: "s3gw-issuer"
+      customTlsIssuer: "my-tls-issuer"
+    asserts:
+
+      - hasDocuments:
+          count: 0
+        template: tls-issuer.yaml
+
+      - isSubset:
+          path: metadata.annotations
+          content:
+            cert-manager.io/cluster-issuer: my-tls-issuer
+        documentIndex: 0
+        template: ingress-traefik.yaml
+
   - it: Self Signed Issuer
     set:
       tlsIssuer: "s3gw-issuer"

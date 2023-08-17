@@ -1,4 +1,4 @@
-{{- if .Values.useCertManager }}
+{{- if and .Values.useCertManager (empty .Values.customTlsIssuer) }}
 ---
 # Private s3gw-ca issuer
 # This issuer is needed in all cases to issue a certificate for the
