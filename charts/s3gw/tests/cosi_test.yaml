@@ -91,25 +91,27 @@ tests:
           count: 2
         template: cosi-rbac.yaml
 
-      - containsDocument:
-          kind: ClusterRole
-          apiVersion: rbac.authorization.k8s.io/v1
-          name: s3gw-name-s3gw-namespace-objectstorage-provisioner-role
-        template: cosi-rbac.yaml
-
       - isKind:
           of: ClusterRole
         documentIndex: 0
         template: cosi-rbac.yaml
 
       - containsDocument:
-          kind: ClusterRoleBinding
+          kind: ClusterRole
           apiVersion: rbac.authorization.k8s.io/v1
-          name: s3gw-name-s3gw-namespace-objectstorage-provisioner-role-binding
+          name: s3gw-name-s3gw-namespace-objectstorage-provisioner-role
+        documentIndex: 0
         template: cosi-rbac.yaml
 
       - isKind:
           of: ClusterRoleBinding
+        documentIndex: 1
+        template: cosi-rbac.yaml
+
+      - containsDocument:
+          kind: ClusterRoleBinding
+          apiVersion: rbac.authorization.k8s.io/v1
+          name: s3gw-name-s3gw-namespace-objectstorage-provisioner-role-binding
         documentIndex: 1
         template: cosi-rbac.yaml
 
