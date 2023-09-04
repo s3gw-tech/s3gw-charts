@@ -16,7 +16,7 @@ tests:
       - containsDocument:
           kind: Deployment
           apiVersion: apps/v1
-          name: s3gw-release
+          name: s3gw-release-s3gw
           namespace: s3gw-namespace
         documentIndex: 0
         templates:
@@ -36,7 +36,7 @@ tests:
       - containsDocument:
           kind: Deployment
           apiVersion: apps/v1
-          name: s3gw-release-ui
+          name: s3gw-release-ui-s3gw
           namespace: s3gw-namespace
         documentIndex: 0
         templates:
@@ -45,7 +45,7 @@ tests:
       - containsDocument:
           kind: Deployment
           apiVersion: apps/v1
-          name: s3gw-release-ui-ui
+          name: s3gw-release-ui-s3gw-ui
           namespace: s3gw-namespace
         documentIndex: 1
         templates:
@@ -65,7 +65,7 @@ tests:
       - containsDocument:
           kind: Deployment
           apiVersion: apps/v1
-          name: s3gw-release
+          name: s3gw-release-s3gw
           namespace: s3gw-namespace
         documentIndex: 0
         templates:

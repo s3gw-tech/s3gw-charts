@@ -31,7 +31,7 @@ tests:
       - containsDocument:
           kind: Secret
           apiVersion: v1
-          name: s3gw-name-s3gw-namespace-objectstorage-provisioner
+          name: s3gw-name-s3gw-namespace-objectstorage-provisioner-s3gw
           namespace: s3gw-namespace
         template: cosi-driver-secret.yaml
 
@@ -99,7 +99,7 @@ tests:
       - containsDocument:
           kind: ClusterRole
           apiVersion: rbac.authorization.k8s.io/v1
-          name: s3gw-name-s3gw-namespace-objectstorage-provisioner-role
+          name: s3gw-name-s3gw-namespace-objectstorage-provisioner-role-s3gw
         documentIndex: 0
         template: cosi-rbac.yaml
 
@@ -111,7 +111,7 @@ tests:
       - containsDocument:
           kind: ClusterRoleBinding
           apiVersion: rbac.authorization.k8s.io/v1
-          name: s3gw-name-s3gw-namespace-objectstorage-provisioner-role-binding
+          name: s3gw-name-s3gw-namespace-objectstorage-provisioner-role-binding-s3gw
         documentIndex: 1
         template: cosi-rbac.yaml
 
@@ -122,7 +122,7 @@ tests:
       - containsDocument:
           kind: ServiceAccount
           apiVersion: v1
-          name: s3gw-name-s3gw-namespace-objectstorage-provisioner-sa
+          name: s3gw-name-s3gw-namespace-objectstorage-provisioner-sa-s3gw
           namespace: s3gw-namespace
         template: cosi-sa.yaml
 
@@ -135,7 +135,7 @@ tests:
           path: subjects
           content:
             kind: ServiceAccount
-            name: s3gw-name-s3gw-namespace-objectstorage-provisioner-sa
+            name: s3gw-name-s3gw-namespace-objectstorage-provisioner-sa-s3gw
             namespace: s3gw-namespace
           any: true
         documentIndex: 1
@@ -146,7 +146,7 @@ tests:
           content:
             kind: ClusterRole
             apiGroup: rbac.authorization.k8s.io
-            name: s3gw-name-s3gw-namespace-objectstorage-provisioner-role
+            name: s3gw-name-s3gw-namespace-objectstorage-provisioner-role-s3gw
           any: true
         documentIndex: 1
         template: cosi-rbac.yaml
