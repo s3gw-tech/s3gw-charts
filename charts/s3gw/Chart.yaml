@@ -33,3 +33,5 @@ annotations:
     - name: support
       url: https://github.com/aquarist-labs/s3gw/issues
   app.aquarist-labs.io/name: s3gw
+  catalog.cattle.io/release-name: s3gw
+  catalog.cattle.io/display-name: S3 Object Storage
