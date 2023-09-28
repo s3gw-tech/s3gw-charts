@@ -70,7 +70,7 @@ jobs:
 
       - name: Install Traefik
         run: |
-          helm repo add traefik https://helm.traefik.io/traefik
+          helm repo add traefik https://traefik.github.io/charts
           helm repo update
           helm install traefik traefik/traefik \
             --namespace=traefik --create-namespace
