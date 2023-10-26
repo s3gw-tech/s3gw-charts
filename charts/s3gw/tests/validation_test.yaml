@@ -28,6 +28,10 @@ tests:
       ui.enabled: false
       useExistingSecret: false
       useCertManager: false
+      tls.publicDomain.crt: foo
+      tls.publicDomain.key: bar
+      tls.privateDomain.crt: abc
+      tls.privateDomain.key: xyz
     asserts:
       # An empty document counts as having failed templating. But in case of
       # chart-validation.yaml we expect the document to be empty if none of the
@@ -66,6 +70,12 @@ tests:
       publicDomain: "example.com"
       useExistingSecret: false
       useCertManager: false
+      tls.publicDomain.crt: foo
+      tls.publicDomain.key: bar
+      tls.privateDomain.crt: abc
+      tls.privateDomain.key: xyz
+      tls.ui.publicDomain.crt: aaa
+      tls.ui.publicDomain.key: bbb
     asserts:
 
       - hasDocuments:
@@ -78,6 +88,10 @@ tests:
       publicDomain: example.com
       useExistingSecret: false
       useCertManager: false
+      tls.publicDomain.crt: foo
+      tls.publicDomain.key: bar
+      tls.privateDomain.crt: abc
+      tls.privateDomain.key: xyz
     asserts:
 
       - hasDocuments:
@@ -166,6 +180,10 @@ tests:
       publicDomain: "example.com"
       ui.enabled: false
       useExistingSecret: false
+      tls.publicDomain.crt: foo
+      tls.publicDomain.key: bar
+      tls.privateDomain.crt: abc
+      tls.privateDomain.key: xyz
     asserts:
 
       - hasDocuments:
