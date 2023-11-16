@@ -58,6 +58,7 @@ jobs:
             --charts charts/s3gw \
             --target-branch ${GITHUB_REF_NAME} \
             --helm-extra-args="--timeout=500s" \
+            --helm-extra-set-args="--set=imageTag=dev-latest" \
             --additional-commands="helm unittest --strict charts/s3gw" \
             --validate-maintainers=false \
             --debug
