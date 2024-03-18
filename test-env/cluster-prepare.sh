@@ -46,7 +46,7 @@ set -e
 echo "Preparing k3d environment"
 
 helm repo add jetstack https://charts.jetstack.io
-helm repo add s3gw https://aquarist-labs.github.io/s3gw-charts/
+helm repo add s3gw https://charts.s3gw.tech
 helm repo update
 
 #Install the cert-manager

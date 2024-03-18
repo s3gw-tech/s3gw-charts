@@ -38,7 +38,7 @@ tls:
 # To workaround that, please open the URL https://<HOSTNAME> in the
 # browser and accept the SSL certificate before accessing the UI
 # via https://<UI-HOSTNAME>.
-# Check https://github.com/aquarist-labs/s3gw/issues/31 to get more
+# Check https://github.com/s3gw-tech/s3gw/issues/31 to get more
 # information about the CORS issues.
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ui:
@@ -50,7 +50,7 @@ ui:
   publicDomain: ""
 
   # --- Developer Options ---
-  # imageName: "aquarist-labs/s3gw-ui"
+  # imageName: "s3gw-tech/s3gw-ui"
   # imageTag: "v0.0.0"
 
 # S3 Service

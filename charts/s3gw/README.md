@@ -16,7 +16,7 @@ To install s3gw using Helm add the chart to your Helm repository and then run
 `helm install`:
 
 ```bash
-helm repo add s3gw https://aquarist-labs.github.io/s3gw-charts/
+helm repo add s3gw https://charts.s3gw.tech
 helm \
   --namespace s3gw-system \
   install s3gw \
@@ -32,7 +32,7 @@ follows:
 
 - Cluster -> Projects/Namespaces - create the `s3gw` namespace.
 - Apps -> Repositories -> Create `s3gw` using the s3gw-charts Git URL
-  <https://aquarist-labs.github.io/s3gw-charts/> and the `main` branch.
+  <https://charts.s3gw.tech/> and the `main` branch.
 - Apps -> Charts -> Install `Traefik`.
 - Apps -> Charts -> Install `s3gw`. Select the `s3gw` namespace previously
   created. A `pvc` for `s3gw` will be created automatically during installation.
@@ -107,6 +107,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-[s3gw-url]: https://s3gw.io
+[s3gw-url]: https://s3gw.tech
 [docs-url]: https://s3gw-docs.readthedocs.io/en/latest/helm-charts/
 [ct-url]: https://github.com/helm/chart-testing
